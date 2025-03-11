@@ -1,0 +1,6 @@
+[submodule "lib/Libft"]
+	path = lib/Libft
+	url = git@github.com:Wormav/Libft.git
+[submodule "lib/MacroLibX"]
+	path = lib/MacroLibX
+	url = git@github.com:seekrs/MacroLibX.git

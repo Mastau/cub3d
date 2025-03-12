@@ -6,9 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:08:27 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/12 14:56:44 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:05:44 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+// ! fichier a delet pour le rendu
 
 #ifndef DEBUG_H
 #define DEBUG_H

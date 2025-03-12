@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/11 18:45:08 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:27:20 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@
 
 typedef struct s_cub
 {
-	char **map;
-	char *no;
-	char *so;
-	char *we;
-	char *ea;
-	char *floor;
-	char *ceiling;
+	char	**map;
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	char	*floor;
+	char	*ceiling;
 
 }	t_cub;
 

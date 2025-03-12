@@ -10,7 +10,7 @@ DIROBJS = .objs
 OBJS = $(SRCS:%.c=$(DIROBJS)/%.o)
 HEADER = -I $(LIBFT_PATH) -I $(MLX_PATH)/includes -I headers/
 SRCS = sources/main.c \
-       fakedata/fake_data.c
+       fake_data.c # A supprimer pour le rendu
 
 # Couleurs et emojis
 RED := \033[1;31m

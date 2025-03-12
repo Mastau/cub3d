@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:14:59 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/11 18:33:15 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:00:20 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,7 @@ int main(void)
 
 	data = init_fake_data();
 	print_data(data);
+	free_cub(&data);
 	return (0);
 }
+

@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   debug.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/11 18:14:59 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/12 15:04:38 by jlorette         ###   ########.fr       */
+/*   Created: 2025/03/11 18:08:27 by jlorette          #+#    #+#             */
+/*   Updated: 2025/03/12 15:27:51 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub.h>
-#include <stdio.h>
-#include "debug.h"
+// ! fichier a delet pour le rendu
 
-int main(void)
-{
-	t_cub data;
+#ifndef DEBUG_H
+# define DEBUG_H
 
-	data = init_fake_data();
-	print_data(data);
-	free_cub(&data);
-	return (0);
-}
+# include <cub.h>
 
+t_cub	init_fake_data(void);
+void	print_data(t_cub data);
+void	free_cub(t_cub *data);
+
+#endif

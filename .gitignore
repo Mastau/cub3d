@@ -11,6 +11,7 @@
 *.ko
 *.obj
 *.elf
+*.objs
 
 # Linker output
 *.ilk
@@ -57,3 +58,6 @@ Mkfile.old
 dkms.conf
 compile_commands.json
 
+# custom
+.vscode
+cub3d

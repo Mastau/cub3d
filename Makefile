@@ -9,8 +9,13 @@ LDFLAGS = -lm -lSDL2
 DIROBJS = .objs
 OBJS = $(SRCS:%.c=$(DIROBJS)/%.o)
 HEADER = -I $(LIBFT_PATH) -I $(MLX_PATH)/includes -I headers/
-SRCS = sources/main.c \
-       fake_data.c # A supprimer pour le rendu
+SRCS =	sources/main.c \
+		sources/algo/init_player.c \
+		sources/algo/degree_to_radian.c \
+		sources/algo/ray_cast.c \
+		sources/algo/init_ray_steps.c \
+		sources/algo/calculate_intersection.c \
+    	fake_data.c # A supprimer pour le rendu
 
 # Couleurs et emojis
 RED := \033[1;31m

@@ -6,16 +6,13 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:49:52 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/12 15:06:17 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:03:04 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // !fichier a delete pour le rendu
 
 #include <cub.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <libft.h>
 
 t_cub   init_fake_data(void)
 {

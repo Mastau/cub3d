@@ -15,6 +15,7 @@ SRCS =	sources/main.c \
 		sources/algo/ray_cast.c \
 		sources/algo/init_ray_steps.c \
 		sources/algo/calculate_intersection.c \
+		sources/macro/macro.c \
     	fake_data.c # A supprimer pour le rendu
 
 # Couleurs et emojis

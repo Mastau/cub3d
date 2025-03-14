@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/13 16:29:16 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/14 13:22:50 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <math.h>
 # include <libft.h>
+# include <mlx.h>
 
 # define M_PI 3.14159265358979323846
 # define WIDTH 1920
@@ -31,6 +32,7 @@ typedef struct s_cub
 	char	*ea;
 	char	*floor;
 	char	*ceiling;
+	mlx_context *mlx;
 
 }	t_cub;
 
@@ -38,6 +40,7 @@ typedef struct s_mlx
 {
 	void	*con;
 	void	*win;
+	void	*img;
 }	t_mlx;
 
 typedef struct s_vector
@@ -98,5 +101,9 @@ void	calculate_intersection(t_ray_info *ray_info, int side);
 t_cub	init_fake_data(void);
 void	print_data(t_cub data);
 void	free_cub(t_cub *data);
+
+// !test
+
+void	test_macro(t_player *player, t_cub *data);
 
 #endif

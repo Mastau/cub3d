@@ -6,15 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:14:59 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/13 15:46:36 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/14 11:54:15 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub.h>
-
-
-
-
 
 int main(void) {
     t_cub data;
@@ -24,7 +20,6 @@ int main(void) {
     data = init_fake_data();
 
     initialize_player(&player, &data);
-
 
     t_vector intersection;
     for (int i = 0; i < WIDTH; i++) {
@@ -47,7 +42,9 @@ int main(void) {
 
 	printf("-------------------------------------------\n\n");
 
-    print_data(data);
+	test_macro(&player, &data);
+
+	print_data(data);
     free_cub(&data);
     return 0;
 }

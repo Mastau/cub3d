@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:14:59 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/16 15:02:18 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/16 18:25:20 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	main(void)
 	printf("Player Direction: (%f, %f)\n", player.dir.x, player.dir.y);
 	printf("-------------------------------------------\n\n");
 	print_data(data);
-	test_macro(&player, &data);
+	data.player = &player;
+	test_macro(&data);
 	free_cub(&data);
 	return (0);
 }

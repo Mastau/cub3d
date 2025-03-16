@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/16 15:07:10 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/16 18:22:40 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,7 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define FOV 60
-
-typedef struct s_cub
-{
-	char		**map;
-	char		*no;
-	char		*so;
-	char		*we;
-	char		*ea;
-	char		*floor;
-	char		*ceiling;
-	mlx_context	*mlx;
-
-}	t_cub;
-
-typedef struct s_mlx
-{
-	void	*con;
-	void	*win;
-	void	*img;
-}	t_mlx;
+# define MOVE_SPEED 0.05
 
 typedef struct s_vector
 {
@@ -57,6 +38,29 @@ typedef struct s_player
 	int			map_width;
 	int			map_height;
 }	t_player;
+
+typedef struct s_cub
+{
+	char		**map;
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+	char		*floor;
+	char		*ceiling;
+	mlx_context	*mlx;
+	mlx_window *win;
+	t_player *player;
+
+}	t_cub;
+
+typedef struct s_mlx
+{
+	void	*con;
+	void	*win;
+	void	*img;
+}	t_mlx;
+
 
 typedef struct s_intersection_data
 {
@@ -84,6 +88,7 @@ void	free_cub(t_cub *data);
 
 // !test
 
-void	test_macro(t_player *player, t_cub *data);
+void test_macro(t_cub *data);
+void move_player_forward(t_cub *data);
 
 #endif

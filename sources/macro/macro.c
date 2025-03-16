@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 11:07:21 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/14 16:06:54 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/16 11:43:51 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,38 +53,59 @@ void draw_map(mlx_context mlx, mlx_window win, t_cub *data, t_player *player)
         }
     }
 
-    // Dessiner les rayons (on en réduit le nombre)
+    // Dessiner les rayons (seulement dans le champ de vision)
     if (player) {
         // Position du joueur sur la carte (en pixels)
         int player_x = x_offset + (int)(player->pos.x * taille_carre);
         int player_y = y_offset + (int)(player->pos.y * taille_carre);
 
-        // Nombre de rayons pour faire un tour complet (360°)
-        int nb_rayons = 70; // Vous pouvez ajuster ce nombre pour avoir plus de rayons
+        // Déterminer l'angle de base selon l'orientation du joueur (N, S, E, W)
+        double base_angle;
+        char orientation = '\0';
 
-        // Angle de départ (0° = direction est)
-        double angle_start = 0;
-        // Incrément d'angle pour couvrir les 360°
-        double angle_step = 360.0 / nb_rayons;
+        // Trouver l'orientation du joueur dans la carte
+        for (int y = 0; data->map[y] != NULL && orientation == '\0'; y++) {
+            for (int x = 0; data->map[y][x] != '\0' && orientation == '\0'; x++) {
+                if (data->map[y][x] == 'N' || data->map[y][x] == 'S' ||
+                    data->map[y][x] == 'E' || data->map[y][x] == 'W') {
+                    orientation = data->map[y][x];
+                }
+            }
+        }
 
-        for (int i = 0; i < nb_rayons; i++) {
-            // Calculer l'angle du rayon (en degrés)
-            double angle = angle_start + i * angle_step;
+        // Définir l'angle de base selon l'orientation
+		if (orientation == 'N')
+		base_angle = 0.0;   // vers le haut
+	else if (orientation == 'S')
+		base_angle = 180.0; // vers le bas
+	else if (orientation == 'E')
+		base_angle = 90.0;  // vers la droite
+	else if (orientation == 'W')
+		base_angle = 270.0; // vers la gauche
+	else
+		base_angle = 0.0;  // par défaut
 
-            // Variables pour stocker le résultat du ray casting
+        // Définir le champ de vision (FOV)
+        double fov = 60.0; // angle en degrés
+
+        // Nombre de rayons dans le champ de vision
+        int nb_rayons = 70;
+
+        // Calculer les angles de début et de fin
+        double angle_start = base_angle - (fov / 2.0);
+        double angle_step = fov / (nb_rayons - 1);
+
+        // Dessiner également un rayon directionnel plus épais
+        {
             int hit = 0;
             t_vector intersection;
-
-            // Lancer le rayon
-            ray_cast(player, angle, &hit, &intersection);
+            ray_cast(player, base_angle, &hit, &intersection);
 
             if (hit) {
-                // Convertir les coordonnées d'intersection en pixels
                 int ray_end_x = x_offset + (int)(intersection.x * taille_carre);
                 int ray_end_y = y_offset + (int)(intersection.y * taille_carre);
 
-                // Le reste du code pour tracer la ligne reste inchangé
-                // Algorithme de Bresenham pour tracer une ligne
+                // Algorithme de Bresenham pour tracer une ligne plus épaisse
                 int dx = abs(ray_end_x - player_x);
                 int sx = player_x < ray_end_x ? 1 : -1;
                 int dy = -abs(ray_end_y - player_y);
@@ -96,7 +117,63 @@ void draw_map(mlx_context mlx, mlx_window win, t_cub *data, t_player *player)
                 int y = player_y;
 
                 while (1) {
-                    // Dessiner le pixel du rayon en jaune
+                    // Dessiner le pixel du rayon directionnel en rouge
+                    mlx_pixel_put(mlx, win, x, y, (mlx_color){ .rgba = 0xFF0000FF });
+                    mlx_pixel_put(mlx, win, x+1, y, (mlx_color){ .rgba = 0xFF0000FF });
+                    mlx_pixel_put(mlx, win, x, y+1, (mlx_color){ .rgba = 0xFF0000FF });
+                    mlx_pixel_put(mlx, win, x+1, y+1, (mlx_color){ .rgba = 0xFF0000FF });
+
+                    if (x == ray_end_x && y == ray_end_y)
+                        break;
+
+                    e2 = 2 * err;
+                    if (e2 >= dy) {
+                        if (x == ray_end_x)
+                            break;
+                        err += dy;
+                        x += sx;
+                    }
+                    if (e2 <= dx) {
+                        if (y == ray_end_y)
+                            break;
+                        err += dx;
+                        y += sy;
+                    }
+                }
+            }
+        }
+
+        // Lancer les rayons dans le champ de vision
+        for (int i = 0; i < nb_rayons; i++) {
+            double angle = angle_start + i * angle_step;
+            // Normaliser l'angle entre 0 et 360 degrés
+            while (angle < 0)
+                angle += 360.0;
+            while (angle >= 360.0)
+                angle -= 360.0;
+
+            int hit = 0;
+            t_vector intersection;
+
+            ray_cast(player, angle, &hit, &intersection);
+
+            if (hit) {
+                // Le code pour dessiner les rayons reste le même
+                int ray_end_x = x_offset + (int)(intersection.x * taille_carre);
+                int ray_end_y = y_offset + (int)(intersection.y * taille_carre);
+
+                // Algorithme de Bresenham
+                int dx = abs(ray_end_x - player_x);
+                int sx = player_x < ray_end_x ? 1 : -1;
+                int dy = -abs(ray_end_y - player_y);
+                int sy = player_y < ray_end_y ? 1 : -1;
+                int err = dx + dy;
+                int e2;
+
+                int x = player_x;
+                int y = player_y;
+
+                while (1) {
                     mlx_pixel_put(mlx, win, x, y, (mlx_color){ .rgba = 0xFFFF00FF });
 
                     if (x == ray_end_x && y == ray_end_y)

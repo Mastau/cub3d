@@ -6,11 +6,12 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:45:49 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/13 16:23:07 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/16 12:44:51 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub.h>
+#include <raycast.h>
 
 static void	init_ray_direction(double angle, t_player *player,
 double *ray_dir_x, double *ray_dir_y)

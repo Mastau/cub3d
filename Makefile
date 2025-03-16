@@ -16,6 +16,13 @@ SRCS =	sources/main.c \
 		sources/algo/init_ray_steps.c \
 		sources/algo/calculate_intersection.c \
 		sources/macro/macro.c \
+		sources/macro/hook.c \
+		sources/minimap/map/draw_map.c \
+		sources/minimap/map/draw_title.c \
+		sources/minimap/map/get_player_orientation.c \
+		sources/minimap/raycasting/cast_ray.c \
+		sources/minimap/rendering/draw_ray.c \
+		sources/minimap/rendering/draw_square.c \
     	fake_data.c # A supprimer pour le rendu
 
 # Couleurs et emojis

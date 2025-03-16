@@ -6,11 +6,12 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:18:24 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/13 16:23:19 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/16 12:45:11 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub.h>
+#include <raycast.h>
 
 static double	calculate_perpendicular_distance(t_ray_params *params, int side)
 {

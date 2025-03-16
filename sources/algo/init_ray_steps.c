@@ -6,11 +6,12 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:54:30 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/13 16:25:50 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/16 12:45:03 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub.h>
+#include <raycast.h>
 
 static void	calculate_delta_dist(double ray_dir_x, double ray_dir_y,
 t_ray_params *params)

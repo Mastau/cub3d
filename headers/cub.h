@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/16 18:22:40 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/16 19:59:17 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,10 @@ void	free_cub(t_cub *data);
 
 void test_macro(t_cub *data);
 void move_player_forward(t_cub *data);
+void rotate_player_left(t_cub *data);
+void rotate_player_right(t_cub *data);
+void move_player_backward(t_cub *data);
+void move_player_left(t_cub *data);
+void move_player_right(t_cub *data);
 
 #endif

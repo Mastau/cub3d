@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 14:12:58 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/16 14:56:21 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/16 19:48:03 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int coords[2])
 		|| data->map[y][x] == 'E' || data->map[y][x] == 'W')
 	{
 		set_square_player(&params, pos_x, pos_y);
-		draw_square(mlx, win, &params);
 	}
 }
 

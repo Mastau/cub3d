@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 12:46:47 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/16 15:09:48 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/16 19:41:11 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,7 @@ void	cast_and_draw_rays(mlx_context mlx, mlx_window win,
 			t_player *player, double base_angle);
 void	draw_ray(mlx_context mlx, mlx_window win, t_ray_params *params);
 void	draw_square(mlx_context mlx, mlx_window win, t_square_params *params);
+void	draw_player(mlx_context mlx, mlx_window win,
+			t_player *player);
 
 #endif

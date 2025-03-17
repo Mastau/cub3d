@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/17 12:12:26 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/17 13:05:55 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ typedef struct s_player
 
 typedef struct s_keys
 {
-    int w;
-    int s;
-    int a;
-    int d;
-    int left;
-    int right;
-} t_keys;
+	int	w;
+	int	s;
+	int	a;
+	int	d;
+	int	left;
+	int	right;
+}	t_keys;
 
 typedef struct s_cub
 {
@@ -74,7 +74,6 @@ typedef struct s_mlx
 	void	*img;
 }	t_mlx;
 
-
 typedef struct s_intersection_data
 {
 	t_vector	*intersection;
@@ -91,25 +90,5 @@ double	degree_to_radian(double degree);
 void	window_hook(int event, void *param);
 void	draw_map(mlx_context mlx, mlx_window win,
 			t_cub *data, t_player *player);
-
-// ! fonction de debug a retirer
-
-t_cub	init_fake_data(void);
-void	print_data(t_cub data);
-void	free_cub(t_cub *data);
-
-// !test
-
-void test_macro(t_cub *data);
-void move_player_forward(t_cub *data);
-void rotate_player_left(t_cub *data);
-void rotate_player_right(t_cub *data);
-void move_player_backward(t_cub *data);
-void move_player_left(t_cub *data);
-void move_player_right(t_cub *data);
-void update_display(t_cub *data);
-void key_press_hook(int key, void *param);
-void key_release_hook(int key, void *param);
-void update_game(void *param);
 
 #endif

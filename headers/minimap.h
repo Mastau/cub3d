@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 12:46:47 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/16 19:41:11 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/17 13:06:04 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_square_params
 	int	color;
 }	t_square_params;
 
+void	minimap(t_cub *data);
 void	draw_map_row(mlx_context mlx, mlx_window win, t_cub *data, int y);
 void	draw_map(mlx_context mlx, mlx_window win, t_cub *data,
 			t_player *player);

@@ -6,11 +6,13 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:14:59 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/16 18:25:20 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/17 13:02:13 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub.h>
+#include <debug.h>
+#include <minimap.h>
 
 int	main(void)
 {
@@ -25,7 +27,7 @@ int	main(void)
 	printf("-------------------------------------------\n\n");
 	print_data(data);
 	data.player = &player;
-	test_macro(&data);
+	minimap(&data);
 	free_cub(&data);
 	return (0);
 }

@@ -6,14 +6,14 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 14:20:23 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/16 14:55:13 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:54:40 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub.h>
 #include <minimap.h>
 
-static void	prepare_ray_params(t_ray_params *ray_params, t_player *player,
+static void	prepare_ray_params(t_ray *ray_params, t_player *player,
 t_vector *intersection)
 {
 	ray_params->start_x = 50 + (int)(player->pos.x * 30);
@@ -28,7 +28,7 @@ t_player *player, double angle)
 {
 	t_vector		intersection;
 	int				hit;
-	t_ray_params	ray_params;
+	t_ray			ray_params;
 
 	while (angle < 0)
 		angle += 360.0;

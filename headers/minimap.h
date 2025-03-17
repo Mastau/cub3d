@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 12:46:47 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/17 13:06:04 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:52:28 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,7 @@
 # define MINIMAP_H
 
 # include <cub.h>
-
-typedef struct s_ray_params
-{
-	int	start_x;
-	int	start_y;
-	int	end_x;
-	int	end_y;
-	int	color;
-}	t_ray_params;
+# include <raycast.h>
 
 typedef struct s_square_params
 {
@@ -42,7 +34,7 @@ char	get_player_orientation(t_cub *data);
 double	get_base_angle(char orientation);
 void	cast_and_draw_rays(mlx_context mlx, mlx_window win,
 			t_player *player, double base_angle);
-void	draw_ray(mlx_context mlx, mlx_window win, t_ray_params *params);
+void	draw_ray(mlx_context mlx, mlx_window win, t_ray *params);
 void	draw_square(mlx_context mlx, mlx_window win, t_square_params *params);
 void	draw_player(mlx_context mlx, mlx_window win,
 			t_player *player);

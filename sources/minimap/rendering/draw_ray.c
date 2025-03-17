@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 14:19:19 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/16 15:00:15 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:51:53 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	set_ray_direction(int *err_vals, int *pos)
 		err_vals[5] = -1;
 }
 
-void	draw_ray(mlx_context mlx, mlx_window win, t_ray_params *params)
+void	draw_ray(mlx_context mlx, mlx_window win, t_ray *params)
 {
 	int	err_vals[6];
 	int	pos[4];

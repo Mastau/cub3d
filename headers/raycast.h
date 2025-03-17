@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 12:39:28 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/16 15:07:37 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:52:10 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 # define RAYCAST_H
 
 # include <cub.h>
+
+typedef struct s_ray
+{
+	int	start_x;
+	int	start_y;
+	int	end_x;
+	int	end_y;
+	int	color;
+}	t_ray;
 
 typedef struct s_ray_params
 {

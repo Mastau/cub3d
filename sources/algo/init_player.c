@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:22:08 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/16 18:08:10 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:14:32 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int map_width, int map_height)
 				player->pos.x = x + 0.5;
 				player->pos.y = y + 0.5;
 				set_player_direction(player, data->map[y][x]);
+				data->map[y][x] = '0';
 				return (1);
 			}
 			x++;

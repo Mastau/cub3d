@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 11:07:21 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/16 19:59:56 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:03:56 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,24 @@ void rotate_player_left(t_cub *data)
 {
     // Rotation de la direction du joueur vers la gauche
     double old_dir_x = data->player->dir.x;
-    double rotation_speed = 0.1; // Radians
-    double cos_rot = cos(-rotation_speed);
-    double sin_rot = sin(-rotation_speed);
+    double cos_rot = cos(-ROTATION_SPEED);
+    double sin_rot = sin(-ROTATION_SPEED);
 
     // Appliquer la matrice de rotation
     data->player->dir.x = data->player->dir.x * cos_rot - data->player->dir.y * sin_rot;
     data->player->dir.y = old_dir_x * sin_rot + data->player->dir.y * cos_rot;
-
-    update_display(data);
 }
 
 void rotate_player_right(t_cub *data)
 {
     // Rotation de la direction du joueur vers la droite
     double old_dir_x = data->player->dir.x;
-    double rotation_speed = 0.1; // Radians
-    double cos_rot = cos(rotation_speed);
-    double sin_rot = sin(rotation_speed);
+    double cos_rot = cos(ROTATION_SPEED);
+    double sin_rot = sin(ROTATION_SPEED);
 
     // Appliquer la matrice de rotation
     data->player->dir.x = data->player->dir.x * cos_rot - data->player->dir.y * sin_rot;
     data->player->dir.y = old_dir_x * sin_rot + data->player->dir.y * cos_rot;
-
-    update_display(data);
 }
 
 void move_player_backward(t_cub *data)
@@ -65,11 +59,10 @@ void move_player_backward(t_cub *data)
     {
         data->player->pos.x = new_x;
         data->player->pos.y = new_y;
-        update_display(data);
     }
 }
 
-void move_player_left(t_cub *data)
+void move_player_right(t_cub *data)
 {
     double new_x;
     double new_y;
@@ -82,11 +75,10 @@ void move_player_left(t_cub *data)
     {
         data->player->pos.x = new_x;
         data->player->pos.y = new_y;
-        update_display(data);
     }
 }
 
-void move_player_right(t_cub *data)
+void move_player_left(t_cub *data)
 {
     double new_x;
     double new_y;
@@ -99,7 +91,6 @@ void move_player_right(t_cub *data)
     {
         data->player->pos.x = new_x;
         data->player->pos.y = new_y;
-        update_display(data);
     }
 }
 
@@ -115,13 +106,23 @@ void move_player_forward(t_cub *data)
     {
         data->player->pos.x = new_x;
         data->player->pos.y = new_y;
-        update_display(data);
     }
 }
+
+
 
 void test_macro(t_cub *data)
 {
     mlx_context mlx = mlx_init();
+
+    // Initialisation des touches
+    data->keys.w = 0;
+    data->keys.s = 0;
+    data->keys.a = 0;
+    data->keys.d = 0;
+    data->keys.left = 0;
+    data->keys.right = 0;
+
 
     mlx_window_create_info info = { 0 };
     info.title = "Test";
@@ -129,12 +130,12 @@ void test_macro(t_cub *data)
     info.height = 500;
     data->mlx = &mlx;
     mlx_window win = mlx_new_window(*data->mlx, &info);
-	data->win = &win;
-
-	// Passer le joueur à draw_map pour dessiner les rayons
+    data->win = &win;
     draw_map(mlx, win, data, data->player);
 
     mlx_on_event(mlx, win, MLX_WINDOW_EVENT, window_hook, data);
-    mlx_on_event(mlx, win, MLX_KEYDOWN, key_hook, data);
+    mlx_on_event(mlx, win, MLX_KEYDOWN, key_press_hook, data);
+    mlx_on_event(mlx, win, MLX_KEYUP, key_release_hook, data);
+    mlx_add_loop_hook(mlx, update_game, data);
     mlx_loop(mlx);
 }

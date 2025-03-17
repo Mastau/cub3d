@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/16 19:59:17 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:12:26 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define HEIGHT 1080
 # define FOV 60
 # define MOVE_SPEED 0.05
+# define ROTATION_SPEED 0.03
 
 typedef struct s_vector
 {
@@ -34,10 +35,21 @@ typedef struct s_player
 {
 	t_vector	pos;
 	t_vector	dir;
+	char		orientation;
 	char		**map;
 	int			map_width;
 	int			map_height;
 }	t_player;
+
+typedef struct s_keys
+{
+    int w;
+    int s;
+    int a;
+    int d;
+    int left;
+    int right;
+} t_keys;
 
 typedef struct s_cub
 {
@@ -49,8 +61,9 @@ typedef struct s_cub
 	char		*floor;
 	char		*ceiling;
 	mlx_context	*mlx;
-	mlx_window *win;
-	t_player *player;
+	mlx_window	*win;
+	t_player	*player;
+	t_keys		keys;
 
 }	t_cub;
 
@@ -76,7 +89,6 @@ void	ray_cast(t_player *player, double angle, int *hit,
 			t_vector *intersection);
 double	degree_to_radian(double degree);
 void	window_hook(int event, void *param);
-void	key_hook(int key, void *param);
 void	draw_map(mlx_context mlx, mlx_window win,
 			t_cub *data, t_player *player);
 
@@ -95,5 +107,9 @@ void rotate_player_right(t_cub *data);
 void move_player_backward(t_cub *data);
 void move_player_left(t_cub *data);
 void move_player_right(t_cub *data);
+void update_display(t_cub *data);
+void key_press_hook(int key, void *param);
+void key_release_hook(int key, void *param);
+void update_game(void *param);
 
 #endif

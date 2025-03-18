@@ -6,7 +6,7 @@
 /*   By: thomarna <thomarna@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 09:10:39 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/18 11:15:15 by thomarna         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:39:56 by thomarna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,52 @@ int	check_prefix(char *line)
 	return (0);
 }
 
-t_cub *parsing_data(int fd)
+t_cub	*init_data(void)
 {
-	t_cub *data;
-	char *line;
+	t_cub	*data;
 
 	data = malloc(sizeof(t_cub));
 	if (!data)
 		return (NULL);
-	while (1)
+	ft_memset(data, 0, sizeof(t_cub));
+	data->floor = malloc(sizeof(t_rgb));
+	data->ceiling = malloc(sizeof(t_rgb));
+	if (!data->ceiling || !data->floor)
 	{
-		printf("%s\n", line);
+		free(data->floor);
+		free(data->ceiling);
+		free(data);
+		return (NULL);
+	}
+	ft_memset(data->ceiling, -1, sizeof(t_rgb));
+	ft_memset(data->floor, -1, sizeof(t_rgb));
+	return (data);
+}
+
+int	parsing_checker(t_cub *data)
+{
+	int	res;
+
+	res = 0;
+	if (!data->ceiling || !data->floor || data->ea || data->no || !data->so
+		|| !data->we)
+		res = 0;
+	return (res);
+}
+
+t_cub	*parsing_data(int fd)
+{
+	t_cub	*data;
+	char	*line;
+
+	line = NULL;
+	data = init_data();
+	if (!data)
+		return (NULL);
+	line = get_next_line(fd);
+	while (line)
+	{
+		// Call func 4 parse each line
 		line = get_next_line(fd);
 	}
 	return (data);

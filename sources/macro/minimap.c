@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 11:07:21 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/17 15:16:33 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:40:55 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	init_window_info(mlx_window_create_info *info)
 {
 	*info = (mlx_window_create_info){0};
 	info->title = "Minimap";
-	info->width = 1000;
+	info->width = 1200;
 	info->height = 500;
 }
 

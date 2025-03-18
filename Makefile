@@ -1,29 +1,80 @@
 NAME = cub3d
 CC = cc
-LIBFT = lib/Libft/libft.a
-MLX = lib/MacroLibX/libmlx.so
-FLAGS = -Werror -Wall -Wextra -g -lm
+LIBFT_PATH = lib/Libft
+MLX_PATH = lib/MacroLibX
+LIBFT = $(LIBFT_PATH)/libft.a
+MLX = $(MLX_PATH)/libmlx.so
+CFLAGS = -Werror -Wall -Wextra -g
+LDFLAGS = -lm -lSDL2
 DIROBJS = .objs
 OBJS = $(SRCS:%.c=$(DIROBJS)/%.o)
-HEADER = -I lib/libft -I lib/MacroLibX/includes -I includes/
-SRCS = src/main.c \
+HEADER = -I $(LIBFT_PATH) -I $(MLX_PATH)/includes -I headers/
+SRCS = sources/main.c \
+	   sources/parsing.c
 
-all: $(NAME)
+# Couleurs et emojis
+RED := \033[1;31m
+GREEN := \033[1;32m
+YELLOW := \033[1;33m
+RESET := \033[0m
+SUCCESS_EMOJI := ✅
+CLEAN_EMOJI := 🗑️
+BUILD_EMOJI := 🛠️
+
+# Commandes
+RM := rm -rf
+DIR_UP = mkdir -p $(@D)
+MAKEFLAGS += --no-print-directory
+
+all: init $(NAME)
+
+init:
+	@if [ ! -d "$(LIBFT_PATH)" ] || [ ! -d "$(MLX_PATH)" ]; then \
+        echo "$(YELLOW)$(BUILD_EMOJI) Initialisation des submodules...$(RESET)"; \
+        git submodule init; \
+        git submodule update; \
+    fi
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) $(LIBFT) $(MLX) -lSDL2 $(HEADER) -o $@ -lm
+	@echo "$(YELLOW)$(BUILD_EMOJI)  Compilation finale en cours...$(RESET)"
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX) $(LDFLAGS) $(HEADER) -o $@
+	@echo "$(GREEN)$(SUCCESS_EMOJI)  Compilation terminée !$(RESET)"
+
 $(DIROBJS)/%.o: %.c
-	@mkdir -p $(@D)
-	$(CC) $(FLAGS) $(HEADER) $< -c -o $@
+	@$(DIR_UP)
+	@echo "$(YELLOW)$(BUILD_EMOJI)  Compilation de $<...$(RESET)"
+	@$(CC) $(CFLAGS) $(HEADER) -c $< -o $@
+
 $(LIBFT):
-	make -C lib/libft/ 
+	@echo "$(YELLOW)$(BUILD_EMOJI)  Compilation de la Libft...$(RESET)"
+	@make -C $(LIBFT_PATH)
+	@echo "$(GREEN)$(SUCCESS_EMOJI)  Libft compilée !$(RESET)"
+
 $(MLX):
-	make -C lib/MacroLibX/ -j
+	@echo "$(YELLOW)$(BUILD_EMOJI)  Compilation de la MLX...$(RESET)"
+	@make -C $(MLX_PATH) -j
+	@echo "$(GREEN)$(SUCCESS_EMOJI)  MLX compilée !$(RESET)"
+
 clean:
-	@rm -rf $(DIROBJS)
+	@$(RM) $(DIROBJS)
+	@if [ -d "$(LIBFT_PATH)" ]; then \
+        make -C $(LIBFT_PATH) clean; \
+    fi
+	@if [ -d "$(MLX_PATH)" ]; then \
+        make -C $(MLX_PATH) clean; \
+    fi
+	@echo "$(RED)$(CLEAN_EMOJI)  Objets supprimés !$(RESET)"
+
 fclean: clean
-	@rm -f $(NAME)
+	@$(RM) $(NAME)
+	@if [ -d "$(LIBFT_PATH)" ]; then \
+        make -C $(LIBFT_PATH) fclean; \
+    fi
+	@if [ -d "$(MLX_PATH)" ]; then \
+        make -C $(MLX_PATH) fclean; \
+    fi
+	@echo "$(RED)$(CLEAN_EMOJI)  Exécutable et librairies supprimés !$(RESET)"
 
 re: fclean all
 
-.PHONY: clean all re fclean
+.PHONY: clean all re fclean init

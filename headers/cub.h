@@ -6,12 +6,14 @@
 /*   By: thomarna <thomarna@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/11 15:40:38 by thomarna         ###   ########.fr       */
+/*   Updated: 2025/03/12 09:35:17 by thomarna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
+
+# include "libft.h"
 
 # ifndef WIDTH
 #  define WIDTH 1920
@@ -21,20 +23,24 @@
 #  define HEIGHT 1080
 # endif
 
-typedef struct s_cub {
-	char **map;
-	char *no;
-	char *so;
-	char *we;
-	char *ea;
-	char *floor;
-	char *ceiling;
+typedef struct s_cub
+{
+	char	**map;
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	char	*floor;
+	char	*ceiling;
 
-} t_cub;
+}			t_cub;
 
-typedef struct s_mlx {
+typedef struct s_mlx
+{
 	void	*con;
 	void	*win;
-} t_mlx;
+}			t_mlx;
+
+t_cub		*parsing_data(int fd);
 
 #endif

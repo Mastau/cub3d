@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:22:08 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/17 12:14:32 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/20 12:52:17 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,14 @@ int map_width, int map_height)
 {
 	int	x;
 	int	y;
+	int	line_length;
 
 	y = 0;
 	while (y < map_height)
 	{
 		x = 0;
-		while (x < map_width)
+		line_length = ft_strlen(data->map[y]);
+		while (x < map_width && x < line_length)
 		{
 			if (data->map[y][x] == 'N' || data->map[y][x] == 'S'
 				|| data->map[y][x] == 'E' || data->map[y][x] == 'W')

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:49:52 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/20 15:13:43 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:21:27 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ t_cub   init_fake_data(void)
 	ft_strlcpy(fake.so, "../textures/so.png", 19);
 	ft_strlcpy(fake.we, "../textures/we.png", 19);
 	ft_strlcpy(fake.ea, "../textures/ea.png", 19);
-	ft_strlcpy(fake.floor, "220,100,0", 10);
-	ft_strlcpy(fake.ceiling, "225,30,0", 9);
+	ft_strlcpy(fake.floor, "110,50,15", 10);
+	ft_strlcpy(fake.ceiling, "25,25,112", 10);
 
 	map[0] = ft_strdup("        1111111111111111111111111");
 	map[1] = ft_strdup("        1000000000110000000000001");

@@ -8,6 +8,37 @@
 #define WINDOW_HEIGHT 1080
 #define WALL_HEIGHT 600
 
+int	ft_atoi_base(char *str, int base)
+{
+    int	result;
+    int	sign;
+    int	i;
+
+    result = 0;
+    sign = 1;
+    i = 0;
+    if (str[i] == '-')
+    {
+        sign = -1;
+        i++;
+    }
+    else if (str[i] == '+')
+        i++;
+    while (str[i])
+    {
+        if (str[i] >= '0' && str[i] <= '9')
+            result = result * base + (str[i] - '0');
+        else if (str[i] >= 'a' && str[i] <= 'f')
+            result = result * base + (str[i] - 'a' + 10);
+        else if (str[i] >= 'A' && str[i] <= 'F')
+            result = result * base + (str[i] - 'A' + 10);
+        else
+            break;
+        i++;
+    }
+    return (result * sign);
+}
+
 static void	init_keys(t_cub *data)
 {
     data->keys.w = 0;
@@ -44,19 +75,48 @@ static void	key_press_hook_3d(int key, void *param)
         mlx_loop_end(*data->mlx);
 }
 
-static void	draw_vertical_line(mlx_context mlx, mlx_window win,
-                               int x, int wall_height, int color_value)
+// Nouvelle fonction de conversion des couleurs
+static unsigned int convert_rgb_str_to_color(char *rgb_str)
 {
-    int			start;
-    int			end;
-    int			y;
-    mlx_color	ceiling_color;
-    mlx_color	floor_color;
-    mlx_color	wall_color;
+    int r, g, b;
+    char **split;
+    unsigned int color;
+
+    split = ft_split(rgb_str, ',');
+    if (!split || !split[0] || !split[1] || !split[2])
+        return (0xFF000000); // Noir en cas d'erreur
+
+    r = ft_atoi(split[0]);
+    g = ft_atoi(split[1]);
+    b = ft_atoi(split[2]);
+
+    // Libérer la mémoire des split
+    int i = 0;
+    while (split[i])
+        free(split[i++]);
+    free(split);
+
+    // Créer la couleur RGBA (alpha à 255)
+    color = ((r & 0xFF) << 24) | ((g & 0xFF) << 16) | ((b & 0xFF) << 8) | 0xFF;
+
+    return color;
+}
+
+// Modifier la fonction draw_vertical_line
+static void draw_vertical_line(mlx_context mlx, mlx_window win,
+                               int x, int wall_height, int color_value, t_cub *data)
+{
+    int         start;
+    int         end;
+    int         y;
+    mlx_color   ceiling_color;
+    mlx_color   floor_color;
+    mlx_color   wall_color;
     double      shade_factor;
 
-    ceiling_color.rgba = 0x333333FF;  // Couleur du plafond
-    floor_color.rgba = 0x555555FF;    // Couleur du sol
+    // Convertir les chaînes RGB en valeurs de couleur
+    ceiling_color.rgba = convert_rgb_str_to_color(data->ceiling);
+    floor_color.rgba = convert_rgb_str_to_color(data->floor);
     wall_color.rgba = color_value;    // Couleur du mur de base
 
     start = (WINDOW_HEIGHT - wall_height) / 2;
@@ -211,7 +271,7 @@ static void	render_3d_view(mlx_context mlx, mlx_window win, t_cub *data)
             adjusted_color.a = base_color.a;
 
             // Dessiner la ligne verticale représentant une tranche du mur
-            draw_vertical_line(mlx, win, i, wall_height, adjusted_color.rgba);
+            draw_vertical_line(mlx, win, i, wall_height, adjusted_color.rgba, data);
         }
         i++;
     }

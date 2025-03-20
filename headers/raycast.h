@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 12:39:28 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/20 17:10:10 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:42:51 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,19 @@ typedef struct s_ray_info
 	double			ray_dir_y;
 	t_ray_params	*params;
 }	t_ray_info;
+
+typedef struct s_ray_data
+{
+	double		angle;
+	double		base_angle;
+	t_vector	intersection;
+	int			hit;
+	double		distance;
+	double		correction_factor;
+	double		distance_adjusted;
+	int			wall_orientation;
+	double		wall_x;
+}	t_ray_data;
 
 void	init_ray_steps(t_player *player, double ray_dir_x, double ray_dir_y,
 			t_ray_params *params);

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/20 17:03:56 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:42:21 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # define MOVE_SPEED 0.05
 # define ROTATION_SPEED 0.03
 # define WALL_HEIGHT 800
-
 
 typedef struct s_vector
 {
@@ -92,10 +91,5 @@ double	degree_to_radian(double degree);
 void	window_hook(int event, void *param);
 void	draw_map(mlx_context mlx, mlx_window win,
 			t_cub *data, t_player *player);
-
-
-
-// !test
-void init_3d_rendering(t_cub *data);
 
 #endif

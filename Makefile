@@ -26,11 +26,15 @@ SRCS =	sources/main.c \
 		sources/minimap/rendering/draw_ray.c \
 		sources/minimap/rendering/draw_square.c \
 		sources/minimap/rendering/draw_player.c \
+		sources/rendering/draw_vertical_line.c \
 		sources/rendering/rendering.c \
 		sources/rendering/init.c \
+		sources/rendering/init2.c \
+		sources/rendering/determine_wall_orentation.c \
+		sources/rendering/render_3d_view.c \
 		sources/rendering/load_textures.c \
 		sources/utils/convert_rgb_str_to_color.c \
-    	fake_data.c # A supprimer pour le rendu
+    	fake_data.c # ! A supprimer pour le rendu
 
 # Couleurs et emojis
 RED := \033[1;31m

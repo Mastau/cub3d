@@ -6,7 +6,7 @@
 
 #define WINDOW_WIDTH 1920
 #define WINDOW_HEIGHT 1080
-#define WALL_HEIGHT 600
+#define WALL_HEIGHT 800
 
 int	ft_atoi_base(char *str, int base)
 {
@@ -93,8 +93,8 @@ static unsigned int convert_rgb_str_to_color(char *rgb_str)
     // Libérer la mémoire des split
     int i = 0;
     while (split[i])
-        free(split[i++]);
-    free(split);
+        lp_free(split[i++]);
+    lp_free(split);
 
     // Créer la couleur RGBA (alpha à 255)
     color = ((r & 0xFF) << 24) | ((g & 0xFF) << 16) | ((b & 0xFF) << 8) | 0xFF;
@@ -102,22 +102,88 @@ static unsigned int convert_rgb_str_to_color(char *rgb_str)
     return color;
 }
 
-// Modifier la fonction draw_vertical_line
+// Ajoutez cette structure pour stocker les textures chargées
+typedef struct s_textures
+{
+    mlx_image   no;
+    mlx_image   so;
+    mlx_image   we;
+    mlx_image   ea;
+    int         width;
+    int         height;
+} t_textures;
+
+// Fonction pour charger les textures
+static t_textures load_textures(mlx_context mlx, t_cub *data)
+{
+    t_textures textures;
+    int img_width, img_height;
+
+	printf("ici: %s\n", data->no);
+
+	// Charger les quatre textures (nord, sud, est, ouest)
+    textures.no = mlx_new_image_from_file(mlx, data->no, &img_width, &img_height);
+    textures.so = mlx_new_image_from_file(mlx, data->so, &img_width, &img_height);
+    textures.we = mlx_new_image_from_file(mlx, data->we, &img_width, &img_height);
+    textures.ea = mlx_new_image_from_file(mlx, data->ea, &img_width, &img_height);
+
+    textures.width = img_width;
+    textures.height = img_height;
+
+    printf("Textures chargées: %p, %p, %p, %p\n",
+           (void*)textures.no, (void*)textures.so,
+           (void*)textures.we, (void*)textures.ea);
+    printf("Dimensions des textures: %d x %d\n", textures.width, textures.height);
+
+    return textures;
+}
+
+// Modifier la fonction draw_vertical_line pour utiliser les textures
 static void draw_vertical_line(mlx_context mlx, mlx_window win,
-                               int x, int wall_height, int color_value, t_cub *data)
+                              int x, int wall_height, t_textures *textures,
+                              double wall_x, int wall_orientation, t_cub *data)
 {
     int         start;
     int         end;
     int         y;
     mlx_color   ceiling_color;
     mlx_color   floor_color;
-    mlx_color   wall_color;
-    double      shade_factor;
+    mlx_color   texture_color;
+    double      tex_pos;
+    double      step;
+    int         tex_y;
+    int         tex_x;
+    mlx_image   current_texture;
 
     // Convertir les chaînes RGB en valeurs de couleur
     ceiling_color.rgba = convert_rgb_str_to_color(data->ceiling);
     floor_color.rgba = convert_rgb_str_to_color(data->floor);
-    wall_color.rgba = color_value;    // Couleur du mur de base
+
+    // Calculer la position x dans la texture (dépend de wall_x)
+    tex_x = (int)(wall_x * textures->width);
+    if (tex_x < 0)
+        tex_x = 0;
+    if (tex_x >= textures->width)
+        tex_x = textures->width - 1;
+
+    // Sélectionner la texture en fonction de l'orientation du mur
+    switch (wall_orientation)
+    {
+        case 0: // Nord
+            current_texture = textures->no;
+            break;
+        case 1: // Est
+            current_texture = textures->ea;
+            break;
+        case 2: // Sud
+            current_texture = textures->so;
+            break;
+        case 3: // Ouest
+            current_texture = textures->we;
+            break;
+        default:
+            current_texture = textures->no; // Par défaut
+    }
 
     start = (WINDOW_HEIGHT - wall_height) / 2;
     if (start < 0)
@@ -125,6 +191,10 @@ static void draw_vertical_line(mlx_context mlx, mlx_window win,
     end = start + wall_height;
     if (end > WINDOW_HEIGHT)
         end = WINDOW_HEIGHT;
+
+    // Calcul pour le mappage de texture
+    step = (double)textures->height / wall_height;
+    tex_pos = (start - (WINDOW_HEIGHT - wall_height) / 2) * step;
 
     // Dessiner le plafond
     y = 0;
@@ -134,56 +204,45 @@ static void draw_vertical_line(mlx_context mlx, mlx_window win,
         y++;
     }
 
-    // Dessiner le mur avec un effet de dégradé vertical
+    // Dessiner le mur avec la texture, sans effet d'ombrage
     y = start;
     while (y < end)
     {
-        // Calculer un facteur d'ombrage basé sur la position verticale
-        shade_factor = 1.0 - fabs(((double)(y - start) / wall_height) - 0.5) * 0.5;
+        tex_y = (int)tex_pos & (textures->height - 1);
+        tex_pos += step;
 
-        // Appliquer le facteur d'ombrage à la couleur
-        mlx_color shaded_color;
-        shaded_color.r = wall_color.r * shade_factor;
-        shaded_color.g = wall_color.g * shade_factor;
-        shaded_color.b = wall_color.b * shade_factor;
-        shaded_color.a = wall_color.a;
+        // Obtenir la couleur du pixel dans la texture sans modification
+        texture_color = mlx_get_image_pixel(mlx, current_texture, tex_x, tex_y);
 
-        mlx_pixel_put(mlx, win, x, y, shaded_color);
+        // Appliquer directement la couleur de la texture sans effet d'ombrage
+        mlx_pixel_put(mlx, win, x, y, texture_color);
         y++;
     }
 
-    // Dessiner le sol
+    // Dessiner le sol, sans effet de dégradé
     y = end;
     while (y < WINDOW_HEIGHT)
     {
-        // Effet de dégradé pour le sol (plus foncé au loin)
-        double floor_shade = 1.0 - ((double)(y - end) / (WINDOW_HEIGHT - end)) * 0.3;
-
-        mlx_color shaded_floor;
-        shaded_floor.r = floor_color.r * floor_shade;
-        shaded_floor.g = floor_color.g * floor_shade;
-        shaded_floor.b = floor_color.b * floor_shade;
-        shaded_floor.a = floor_color.a;
-
-        mlx_pixel_put(mlx, win, x, y, shaded_floor);
+        mlx_pixel_put(mlx, win, x, y, floor_color);
         y++;
     }
 }
 
-static void	render_3d_view(mlx_context mlx, mlx_window win, t_cub *data)
+// Modifier la fonction render_3d_view pour utiliser les textures
+static void render_3d_view(mlx_context mlx, mlx_window win, t_cub *data, t_textures *textures)
 {
-    int			i;
-    double		angle;
-    double		base_angle;
-    t_vector	intersection;
-    int			hit;
-    double		distance;
-    int			wall_height;
-    int			nb_rayons;
-    int			color;
+    int         i;
+    double      angle;
+    double      base_angle;
+    t_vector    intersection;
+    int         hit;
+    double      distance;
+    int         wall_height;
+    int         nb_rayons;
     double      correction_factor;
     double      distance_adjusted;
     int         wall_orientation;
+    double      wall_x; // Coordonnée x du point d'impact sur le mur (pour le mappage de texture)
 
     base_angle = get_base_angle(get_player_orientation(data));
     nb_rayons = WINDOW_WIDTH;
@@ -214,74 +273,60 @@ static void	render_3d_view(mlx_context mlx, mlx_window win, t_cub *data)
             correction_factor = cos(relative_angle);
             distance_adjusted = distance * correction_factor;
 
-            // Déterminer l'orientation du mur avec plus de précision
+            // Déterminer l'orientation du mur et la coordonnée x sur le mur
             double x_diff = intersection.x - data->player->pos.x;
             double y_diff = intersection.y - data->player->pos.y;
 
-
-            // Déterminer si c'est un mur horizontal ou vertical
-            if (fabs(intersection.x - round(intersection.x)) < 0.01)
+            // Déterminer si c'est un mur horizontal ou vertical avec plus de précision
+            // Utiliser une comparaison plus stricte pour déterminer le type de mur
+            if (fabs(intersection.x - round(intersection.x)) < 0.001)  // Plus précis
             {
                 // Mur vertical (Est/Ouest)
                 wall_orientation = (x_diff > 0) ? 1 : 3; // 1 = Est, 3 = Ouest
+                wall_x = intersection.y - floor(intersection.y); // position relative y
             }
-            else
+            else if (fabs(intersection.y - round(intersection.y)) < 0.001) // Ajout d'une condition explicite
             {
                 // Mur horizontal (Nord/Sud)
                 wall_orientation = (y_diff > 0) ? 2 : 0; // 2 = Sud, 0 = Nord
+                wall_x = intersection.x - floor(intersection.x); // position relative x
+            }
+            else
+            {
+                // En cas de doute, choisir en fonction de la distance à l'entier le plus proche
+                if (fabs(intersection.x - round(intersection.x)) < fabs(intersection.y - round(intersection.y)))
+                {
+                    wall_orientation = (x_diff > 0) ? 1 : 3;
+                    wall_x = intersection.y - floor(intersection.y);
+                }
+                else
+                {
+                    wall_orientation = (y_diff > 0) ? 2 : 0;
+                    wall_x = intersection.x - floor(intersection.x);
+                }
             }
 
-            // Amélioration de la formule de hauteur du mur pour un rendu plus cohérent
+            // Hauteur du mur à l'écran
             wall_height = (int)((WALL_HEIGHT / (distance_adjusted + 0.0001)) * (WINDOW_HEIGHT / 1080.0));
 
             // Limiter la hauteur maximale pour éviter les murs trop grands
             if (wall_height > WINDOW_HEIGHT * 3)
                 wall_height = WINDOW_HEIGHT * 3;
 
-            // Courbe d'atténuation plus douce pour la distance
-            double intensity = 1.0 / (1.0 + distance_adjusted * 0.15);
-
-            // Déterminer la couleur de base selon l'orientation du mur
-            switch (wall_orientation)
-            {
-                case 0: // Nord
-                    color = 0x00FF00FF; // Vert
-                    break;
-                case 1: // Est
-                    color = 0xDD2222FF; // Rouge foncé
-                    break;
-                case 2: // Sud
-                    color = 0x00DD22FF; // Vert foncé
-                    break;
-                case 3: // Ouest
-                    color = 0xFF0000FF; // Rouge
-                    break;
-                default:
-                    color = 0xFFFFFFFF; // Blanc (ne devrait pas arriver)
-            }
-
-            // Appliquer l'intensité à la couleur
-            mlx_color base_color;
-            base_color.rgba = color;
-
-            mlx_color adjusted_color;
-            adjusted_color.r = base_color.r * intensity;
-            adjusted_color.g = base_color.g * intensity;
-            adjusted_color.b = base_color.b * intensity;
-            adjusted_color.a = base_color.a;
-
-            // Dessiner la ligne verticale représentant une tranche du mur
-            draw_vertical_line(mlx, win, i, wall_height, adjusted_color.rgba, data);
+            // Dessiner la ligne verticale avec texture
+            draw_vertical_line(mlx, win, i, wall_height, textures, wall_x, wall_orientation, data);
         }
         i++;
     }
 }
 
-void	init_3d_rendering(t_cub *data)
+// Modifier la fonction d'initialisation du rendu 3D
+void init_3d_rendering(t_cub *data)
 {
-    mlx_context				mlx;
-    mlx_window_create_info	info;
-    mlx_window				win;
+    mlx_context             mlx;
+    mlx_window_create_info  info;
+    mlx_window              win;
+    t_textures              textures;
 
     mlx = mlx_init();
     init_keys(data);
@@ -290,8 +335,11 @@ void	init_3d_rendering(t_cub *data)
     win = mlx_new_window(*data->mlx, &info);
     data->win = &win;
 
-    // Rendu 3D initial (statique)
-    render_3d_view(mlx, win, data);
+    // Charger les textures
+    textures = load_textures(mlx, data);
+
+    // Rendu 3D initial avec textures
+    render_3d_view(mlx, win, data, &textures);
 
     mlx_set_fps_goal(mlx, 60);
 
@@ -301,4 +349,10 @@ void	init_3d_rendering(t_cub *data)
 
     // Démarrer la boucle principale
     mlx_loop(mlx);
+
+    // Libérer les ressources des textures à la fin
+    mlx_destroy_image(mlx, textures.no);
+    mlx_destroy_image(mlx, textures.so);
+    mlx_destroy_image(mlx, textures.we);
+    mlx_destroy_image(mlx, textures.ea);
 }

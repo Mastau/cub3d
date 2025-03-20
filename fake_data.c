@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:49:52 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/20 16:21:27 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:54:02 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ t_cub   init_fake_data(void)
 	fake.floor = lp_alloc(sizeof(char) * 10);
 	fake.ceiling = lp_alloc(sizeof(char) * 9);
 
-	ft_strlcpy(fake.no, "../textures/no.png", 19);
-	ft_strlcpy(fake.so, "../textures/so.png", 19);
-	ft_strlcpy(fake.we, "../textures/we.png", 19);
-	ft_strlcpy(fake.ea, "../textures/ea.png", 19);
-	ft_strlcpy(fake.floor, "110,50,15", 10);
+	ft_strlcpy(fake.no, "./textures/no.png", 18);
+	ft_strlcpy(fake.so, "./textures/so.png", 18);
+	ft_strlcpy(fake.we, "./textures/we.png", 18);
+	ft_strlcpy(fake.ea, "./textures/ea.png", 18);
+	ft_strlcpy(fake.floor, "50,50,50", 10);
 	ft_strlcpy(fake.ceiling, "25,25,112", 10);
 
 	map[0] = ft_strdup("        1111111111111111111111111");
@@ -42,7 +42,7 @@ t_cub   init_fake_data(void)
 	map[5] = ft_strdup("100000000011000001110111100011111");
 	map[6] = ft_strdup("11110111111111011100000010001");
 	map[7] = ft_strdup("11110111111111011101010010001");
-	map[8] = ft_strdup("11000000110101011100000010001");
+	map[8] = ft_strdup("11000000110101011100000010101");
 	map[9] = ft_strdup("10000000000000001100000010001");
 	map[10] = ft_strdup("10000000000000001101010010001");
 	map[11] = ft_strdup("1100000111010101111101111000111");

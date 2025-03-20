@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   rendering.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/20 14:07:41 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/20 15:23:05 by jlorette         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <cub.h>
 #include <macro.h>
 #include <raycast.h>
@@ -18,7 +6,7 @@
 
 #define WINDOW_WIDTH 1920
 #define WINDOW_HEIGHT 1080
-#define WALL_HEIGHT 500
+#define WALL_HEIGHT 600
 
 static void	init_keys(t_cub *data)
 {
@@ -134,6 +122,8 @@ static void	render_3d_view(mlx_context mlx, mlx_window win, t_cub *data)
     int			nb_rayons;
     int			color;
     double      correction_factor;
+    double      distance_adjusted;
+    int         wall_orientation;
 
     base_angle = get_base_angle(get_player_orientation(data));
     nb_rayons = WINDOW_WIDTH;
@@ -141,7 +131,8 @@ static void	render_3d_view(mlx_context mlx, mlx_window win, t_cub *data)
     i = 0;
     while (i < nb_rayons)
     {
-        angle = base_angle - (FOV / 2.0) + (i * FOV / (nb_rayons - 1));
+        // Calcul plus précis de l'angle pour chaque rayon
+        angle = base_angle - (FOV / 2.0) + (i * FOV / (double)(nb_rayons - 1));
 
         // Normaliser l'angle
         while (angle < 0)
@@ -154,44 +145,59 @@ static void	render_3d_view(mlx_context mlx, mlx_window win, t_cub *data)
 
         if (hit)
         {
-            // Calculer la distance perpendiculaire au plan de la caméra
+            // Calculer la distance euclidienne
             distance = sqrt(pow(data->player->pos.x - intersection.x, 2) +
                         pow(data->player->pos.y - intersection.y, 2));
 
-            // Corriger l'effet fisheye avec le cosinus de l'angle relatif
-            double relative_angle = (angle - base_angle) * M_PI / 180.0;
+            // Corriger l'effet fisheye avec le cosinus de l'angle relatif (en radians)
+            double relative_angle = fabs((angle - base_angle) * M_PI / 180.0);
             correction_factor = cos(relative_angle);
-            distance *= correction_factor;
+            distance_adjusted = distance * correction_factor;
 
-            // Amélioration de la formule de hauteur du mur
-            // Ajouter une constante pour éviter la division par zéro
-            wall_height = (int)((WALL_HEIGHT / (distance + 0.01)) * (WINDOW_HEIGHT / 1080.0));
+            // Déterminer l'orientation du mur avec plus de précision
+            double x_diff = intersection.x - data->player->pos.x;
+            double y_diff = intersection.y - data->player->pos.y;
+
+
+            // Déterminer si c'est un mur horizontal ou vertical
+            if (fabs(intersection.x - round(intersection.x)) < 0.01)
+            {
+                // Mur vertical (Est/Ouest)
+                wall_orientation = (x_diff > 0) ? 1 : 3; // 1 = Est, 3 = Ouest
+            }
+            else
+            {
+                // Mur horizontal (Nord/Sud)
+                wall_orientation = (y_diff > 0) ? 2 : 0; // 2 = Sud, 0 = Nord
+            }
+
+            // Amélioration de la formule de hauteur du mur pour un rendu plus cohérent
+            wall_height = (int)((WALL_HEIGHT / (distance_adjusted + 0.0001)) * (WINDOW_HEIGHT / 1080.0));
 
             // Limiter la hauteur maximale pour éviter les murs trop grands
             if (wall_height > WINDOW_HEIGHT * 3)
                 wall_height = WINDOW_HEIGHT * 3;
 
-            // Appliquer une variation de couleur en fonction de la distance
-            double intensity = 1.0;
-            if (distance > 0.1)
-                intensity = 1.0 / (1.0 + distance * 0.1); // Atténuation progressive
+            // Courbe d'atténuation plus douce pour la distance
+            double intensity = 1.0 / (1.0 + distance_adjusted * 0.15);
 
-            // Détermination de la couleur du mur basée sur l'orientation
-            if (fabs(intersection.x - round(intersection.x)) < 0.01)
+            // Déterminer la couleur de base selon l'orientation du mur
+            switch (wall_orientation)
             {
-                // Murs Est/Ouest
-                if (intersection.x > data->player->pos.x)
-                    color = 0xDD2222FF; // Rouge plus foncé pour Est
-                else
-                    color = 0xFF0000FF; // Rouge pour Ouest
-            }
-            else
-            {
-                // Murs Nord/Sud
-                if (intersection.y > data->player->pos.y)
-                    color = 0x00DD22FF; // Vert plus foncé pour Sud
-                else
-                    color = 0x00FF00FF; // Vert pour Nord
+                case 0: // Nord
+                    color = 0x00FF00FF; // Vert
+                    break;
+                case 1: // Est
+                    color = 0xDD2222FF; // Rouge foncé
+                    break;
+                case 2: // Sud
+                    color = 0x00DD22FF; // Vert foncé
+                    break;
+                case 3: // Ouest
+                    color = 0xFF0000FF; // Rouge
+                    break;
+                default:
+                    color = 0xFFFFFFFF; // Blanc (ne devrait pas arriver)
             }
 
             // Appliquer l'intensité à la couleur
@@ -226,6 +232,8 @@ void	init_3d_rendering(t_cub *data)
 
     // Rendu 3D initial (statique)
     render_3d_view(mlx, win, data);
+
+    mlx_set_fps_goal(mlx, 60);
 
     // Installation des hooks pour les événements
     mlx_on_event(mlx, win, MLX_WINDOW_EVENT, window_hook_3d, data);

@@ -26,6 +26,7 @@ SRCS =	sources/main.c \
 		sources/minimap/rendering/draw_ray.c \
 		sources/minimap/rendering/draw_square.c \
 		sources/minimap/rendering/draw_player.c \
+		sources/rendering/rendering.c \
     	fake_data.c # A supprimer pour le rendu
 
 # Couleurs et emojis

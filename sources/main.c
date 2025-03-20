@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:14:59 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/17 13:02:13 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:17:42 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	main(void)
 	printf("-------------------------------------------\n\n");
 	print_data(data);
 	data.player = &player;
-	minimap(&data);
+	// minimap(&data);
+	init_3d_rendering(&data);
 	free_cub(&data);
 	return (0);
 }

@@ -1,142 +1,8 @@
 #include <cub.h>
 #include <macro.h>
 #include <raycast.h>
-#include <math.h>
-#include <minimap.h>
-
-#define WINDOW_WIDTH 1920
-#define WINDOW_HEIGHT 1080
-#define WALL_HEIGHT 800
-
-int	ft_atoi_base(char *str, int base)
-{
-    int	result;
-    int	sign;
-    int	i;
-
-    result = 0;
-    sign = 1;
-    i = 0;
-    if (str[i] == '-')
-    {
-        sign = -1;
-        i++;
-    }
-    else if (str[i] == '+')
-        i++;
-    while (str[i])
-    {
-        if (str[i] >= '0' && str[i] <= '9')
-            result = result * base + (str[i] - '0');
-        else if (str[i] >= 'a' && str[i] <= 'f')
-            result = result * base + (str[i] - 'a' + 10);
-        else if (str[i] >= 'A' && str[i] <= 'F')
-            result = result * base + (str[i] - 'A' + 10);
-        else
-            break;
-        i++;
-    }
-    return (result * sign);
-}
-
-static void	init_keys(t_cub *data)
-{
-    data->keys.w = 0;
-    data->keys.s = 0;
-    data->keys.a = 0;
-    data->keys.d = 0;
-    data->keys.left = 0;
-    data->keys.right = 0;
-}
-
-static void	init_window_info(mlx_window_create_info *info)
-{
-    *info = (mlx_window_create_info){0};
-    info->title = "Cub3D";
-    info->width = WINDOW_WIDTH;
-    info->height = WINDOW_HEIGHT;
-}
-
-static void	window_hook_3d(int event, void *param)
-{
-    t_cub	*data;
-
-    data = (t_cub *)param;
-    if (event == 0)
-        mlx_loop_end(*data->mlx);
-}
-
-static void	key_press_hook_3d(int key, void *param)
-{
-    t_cub	*data;
-
-    data = (t_cub *)param;
-    if (key == 41)
-        mlx_loop_end(*data->mlx);
-}
-
-// Nouvelle fonction de conversion des couleurs
-static unsigned int convert_rgb_str_to_color(char *rgb_str)
-{
-    int r, g, b;
-    char **split;
-    unsigned int color;
-
-    split = ft_split(rgb_str, ',');
-    if (!split || !split[0] || !split[1] || !split[2])
-        return (0xFF000000); // Noir en cas d'erreur
-
-    r = ft_atoi(split[0]);
-    g = ft_atoi(split[1]);
-    b = ft_atoi(split[2]);
-
-    // Libérer la mémoire des split
-    int i = 0;
-    while (split[i])
-        lp_free(split[i++]);
-    lp_free(split);
-
-    // Créer la couleur RGBA (alpha à 255)
-    color = ((r & 0xFF) << 24) | ((g & 0xFF) << 16) | ((b & 0xFF) << 8) | 0xFF;
-
-    return color;
-}
-
-// Ajoutez cette structure pour stocker les textures chargées
-typedef struct s_textures
-{
-    mlx_image   no;
-    mlx_image   so;
-    mlx_image   we;
-    mlx_image   ea;
-    int         width;
-    int         height;
-} t_textures;
-
-// Fonction pour charger les textures
-static t_textures load_textures(mlx_context mlx, t_cub *data)
-{
-    t_textures textures;
-    int img_width, img_height;
-
-	printf("ici: %s\n", data->no);
-
-	// Charger les quatre textures (nord, sud, est, ouest)
-    textures.no = mlx_new_image_from_file(mlx, data->no, &img_width, &img_height);
-    textures.so = mlx_new_image_from_file(mlx, data->so, &img_width, &img_height);
-    textures.we = mlx_new_image_from_file(mlx, data->we, &img_width, &img_height);
-    textures.ea = mlx_new_image_from_file(mlx, data->ea, &img_width, &img_height);
-
-    textures.width = img_width;
-    textures.height = img_height;
-
-    printf("Textures chargées: %p, %p, %p, %p\n",
-           (void*)textures.no, (void*)textures.so,
-           (void*)textures.we, (void*)textures.ea);
-    printf("Dimensions des textures: %d x %d\n", textures.width, textures.height);
-
-    return textures;
-}
+#include <rendering.h>
+#include <utils.h>
 
 // Modifier la fonction draw_vertical_line pour utiliser les textures
 static void draw_vertical_line(mlx_context mlx, mlx_window win,
@@ -185,16 +51,16 @@ static void draw_vertical_line(mlx_context mlx, mlx_window win,
             current_texture = textures->no; // Par défaut
     }
 
-    start = (WINDOW_HEIGHT - wall_height) / 2;
+    start = (HEIGHT - wall_height) / 2;
     if (start < 0)
         start = 0;
     end = start + wall_height;
-    if (end > WINDOW_HEIGHT)
-        end = WINDOW_HEIGHT;
+    if (end > HEIGHT)
+        end = HEIGHT;
 
     // Calcul pour le mappage de texture
     step = (double)textures->height / wall_height;
-    tex_pos = (start - (WINDOW_HEIGHT - wall_height) / 2) * step;
+    tex_pos = (start - (HEIGHT - wall_height) / 2) * step;
 
     // Dessiner le plafond
     y = 0;
@@ -221,7 +87,7 @@ static void draw_vertical_line(mlx_context mlx, mlx_window win,
 
     // Dessiner le sol, sans effet de dégradé
     y = end;
-    while (y < WINDOW_HEIGHT)
+    while (y < HEIGHT)
     {
         mlx_pixel_put(mlx, win, x, y, floor_color);
         y++;
@@ -245,7 +111,7 @@ static void render_3d_view(mlx_context mlx, mlx_window win, t_cub *data, t_textu
     double      wall_x; // Coordonnée x du point d'impact sur le mur (pour le mappage de texture)
 
     base_angle = get_base_angle(get_player_orientation(data));
-    nb_rayons = WINDOW_WIDTH;
+    nb_rayons = WIDTH;
 
     i = 0;
     while (i < nb_rayons)
@@ -307,11 +173,11 @@ static void render_3d_view(mlx_context mlx, mlx_window win, t_cub *data, t_textu
             }
 
             // Hauteur du mur à l'écran
-            wall_height = (int)((WALL_HEIGHT / (distance_adjusted + 0.0001)) * (WINDOW_HEIGHT / 1080.0));
+            wall_height = (int)((WALL_HEIGHT / (distance_adjusted + 0.0001)) * (HEIGHT / 1080.0));
 
             // Limiter la hauteur maximale pour éviter les murs trop grands
-            if (wall_height > WINDOW_HEIGHT * 3)
-                wall_height = WINDOW_HEIGHT * 3;
+            if (wall_height > HEIGHT * 3)
+                wall_height = HEIGHT * 3;
 
             // Dessiner la ligne verticale avec texture
             draw_vertical_line(mlx, win, i, wall_height, textures, wall_x, wall_orientation, data);
@@ -320,7 +186,6 @@ static void render_3d_view(mlx_context mlx, mlx_window win, t_cub *data, t_textu
     }
 }
 
-// Modifier la fonction d'initialisation du rendu 3D
 void init_3d_rendering(t_cub *data)
 {
     mlx_context             mlx;
@@ -334,23 +199,12 @@ void init_3d_rendering(t_cub *data)
     data->mlx = &mlx;
     win = mlx_new_window(*data->mlx, &info);
     data->win = &win;
-
-    // Charger les textures
     textures = load_textures(mlx, data);
-
-    // Rendu 3D initial avec textures
     render_3d_view(mlx, win, data, &textures);
-
     mlx_set_fps_goal(mlx, 60);
-
-    // Installation des hooks pour les événements
-    mlx_on_event(mlx, win, MLX_WINDOW_EVENT, window_hook_3d, data);
-    mlx_on_event(mlx, win, MLX_KEYDOWN, key_press_hook_3d, data);
-
-    // Démarrer la boucle principale
+    mlx_on_event(mlx, win, MLX_WINDOW_EVENT, window_hook, data);
+    mlx_on_event(mlx, win, MLX_KEYDOWN, key_press_hook, data);
     mlx_loop(mlx);
-
-    // Libérer les ressources des textures à la fin
     mlx_destroy_image(mlx, textures.no);
     mlx_destroy_image(mlx, textures.so);
     mlx_destroy_image(mlx, textures.we);

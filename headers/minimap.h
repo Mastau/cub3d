@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 12:46:47 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/17 14:52:28 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:07:42 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	draw_map_tile(mlx_context mlx, mlx_window win, t_cub *data,
 			int coords[2]);
 void	draw_map_tiles(mlx_context mlx, mlx_window win, t_cub *data);
 char	get_player_orientation(t_cub *data);
-double	get_base_angle(char orientation);
 void	cast_and_draw_rays(mlx_context mlx, mlx_window win,
 			t_player *player, double base_angle);
 void	draw_ray(mlx_context mlx, mlx_window win, t_ray *params);

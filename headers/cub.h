@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/20 14:17:10 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:03:56 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define FOV 60
 # define MOVE_SPEED 0.05
 # define ROTATION_SPEED 0.03
+# define WALL_HEIGHT 800
+
 
 typedef struct s_vector
 {

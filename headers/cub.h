@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/21 11:51:25 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/21 12:03:22 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_keys
 	int	d;
 	int	left;
 	int	right;
+	int	sprint;
 }	t_keys;
 
 typedef struct s_cub

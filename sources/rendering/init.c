@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 17:11:14 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/20 18:27:37 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/21 13:05:01 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <rendering.h>
 #include <raycast.h>
 
-void	init_keys(t_cub *data)
+void	init_keys_3d(t_cub *data)
 {
 	data->keys.w = 0;
 	data->keys.s = 0;
@@ -22,6 +22,7 @@ void	init_keys(t_cub *data)
 	data->keys.d = 0;
 	data->keys.left = 0;
 	data->keys.right = 0;
+	data->keys.sprint = 0;
 }
 
 void	init_window_info(mlx_window_create_info *info)

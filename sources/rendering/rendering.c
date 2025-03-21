@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:34:18 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/21 11:51:54 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/21 13:07:14 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,20 @@
 static void	update_3d_view(void *param)
 {
     t_cub	*data;
+	double current_speed;
 
-    data = (t_cub *)param;
+	data = (t_cub *)param;
+	current_speed = MOVE_SPEED;
+    if (data->keys.sprint)
+        current_speed = MOVE_SPEED * 2.0;
     if (data->keys.w)
-        move_player_forward(data);
+        move_player_forward(data, current_speed);
     if (data->keys.s)
-        move_player_backward(data);
+        move_player_backward(data, current_speed);
     if (data->keys.a)
-        move_player_left(data);
+        move_player_left(data, current_speed);
     if (data->keys.d)
-        move_player_right(data);
+        move_player_right(data, current_speed);
     if (data->keys.left)
         rotate_player_left(data);
     if (data->keys.right)
@@ -50,7 +54,7 @@ void	init_3d_rendering(t_cub *data)
 	t_textures				textures;
 
 	mlx = mlx_init();
-	init_keys(data);
+	init_keys_3d(data);
 	init_window_info(&info);
 	data->mlx = &mlx;
 	win = mlx_new_window(*data->mlx, &info);
@@ -58,7 +62,7 @@ void	init_3d_rendering(t_cub *data)
 	textures = load_textures(mlx, data);
 	data->textures = &textures;
 	render_3d_view(mlx, win, data, &textures);
-	mlx_set_fps_goal(mlx, 120);
+	mlx_set_fps_goal(mlx, 60);
 	mlx_on_event(mlx, win, MLX_WINDOW_EVENT, window_hook, data);
 	mlx_on_event(mlx, win, MLX_KEYDOWN, key_press_hook, data);
 	mlx_on_event(mlx, win, MLX_KEYUP, key_release_hook, data);

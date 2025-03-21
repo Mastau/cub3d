@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 17:11:54 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/21 11:12:58 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/21 13:05:30 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct s_render_context
 	double		base_angle;
 }	t_render_context;
 
-void		init_keys(t_cub *data);
+void		init_keys_3d(t_cub *data);
 void		init_window_info(mlx_window_create_info *info);
 t_textures	load_textures(mlx_context mlx, t_cub *data);
 void		draw_vertical_line(t_render_params *params);

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 11:07:21 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/18 11:40:55 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/21 12:15:55 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	init_keys(t_cub *data)
 	data->keys.d = 0;
 	data->keys.left = 0;
 	data->keys.right = 0;
+	data->keys.sprint = 0;
 }
 
 static void	init_window_info(mlx_window_create_info *info)

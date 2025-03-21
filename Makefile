@@ -10,7 +10,10 @@ DIROBJS = .objs
 OBJS = $(SRCS:%.c=$(DIROBJS)/%.o)
 HEADER = -I $(LIBFT_PATH) -I $(MLX_PATH)/includes -I headers/
 SRCS = sources/main.c \
-	   sources/parsing.c
+	   sources/color.c \
+	   sources/path.c \
+	   sources/parsing.c \
+
 
 # Couleurs et emojis
 RED := \033[1;31m

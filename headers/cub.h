@@ -6,7 +6,7 @@
 /*   By: thomarna <thomarna@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/18 13:21:07 by thomarna         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:39:49 by thomarna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB_H
 
 # include "libft.h"
+# include <stdio.h>
 
 # ifndef WIDTH
 #  define WIDTH 1920
@@ -33,6 +34,7 @@ typedef struct s_rgb
 typedef struct s_cub
 {
 	char	**map;
+	char	*map_line;
 	char	*no;
 	char	*so;
 	char	*we;
@@ -48,5 +50,8 @@ typedef struct s_mlx
 }			t_mlx;
 
 t_cub		*parsing_data(int fd);
-
+char		*skip_spaces(char *str);
+int			check_prefix(char *line);
+int			parsing_color(t_cub *data, char *line);
+int			parsing_path(t_cub *data, char *line);
 #endif

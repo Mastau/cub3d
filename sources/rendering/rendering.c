@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:34:18 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/21 13:07:14 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/21 14:16:04 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,39 @@
 #include <rendering.h>
 #include <utils.h>
 
+static void	render(t_cub *data)
+{
+	mlx_color	clear_color;
+
+	clear_color = (mlx_color){{0, 0, 0, 255}};
+	mlx_clear_window(*data->mlx, *data->win, clear_color);
+	render_3d_view(*data->mlx, *data->win, data, data->textures);
+}
+
 static void	update_3d_view(void *param)
 {
-    t_cub	*data;
-	double current_speed;
+	t_cub	*data;
+	double	current_speed;
 
 	data = (t_cub *)param;
 	current_speed = MOVE_SPEED;
-    if (data->keys.sprint)
-        current_speed = MOVE_SPEED * 2.0;
-    if (data->keys.w)
-        move_player_forward(data, current_speed);
-    if (data->keys.s)
-        move_player_backward(data, current_speed);
-    if (data->keys.a)
-        move_player_left(data, current_speed);
-    if (data->keys.d)
-        move_player_right(data, current_speed);
-    if (data->keys.left)
-        rotate_player_left(data);
-    if (data->keys.right)
-        rotate_player_right(data);
-    if (data->keys.w || data->keys.s || data->keys.a
-        || data->keys.d || data->keys.left || data->keys.right)
-    {
-        mlx_color clear_color = (mlx_color){{0, 0, 0, 255}};
-        mlx_clear_window(*data->mlx, *data->win, clear_color);
-        render_3d_view(*data->mlx, *data->win, data, data->textures);
-    }
+	if (data->keys.sprint)
+		current_speed = MOVE_SPEED * 2.0;
+	if (data->keys.w)
+		move_player_forward(data, current_speed);
+	if (data->keys.s)
+		move_player_backward(data, current_speed);
+	if (data->keys.a)
+		move_player_left(data, current_speed);
+	if (data->keys.d)
+		move_player_right(data, current_speed);
+	if (data->keys.left)
+		rotate_player_left(data);
+	if (data->keys.right)
+		rotate_player_right(data);
+	if (data->keys.w || data->keys.s || data->keys.a
+		|| data->keys.d || data->keys.left || data->keys.right)
+		render(data);
 }
 
 void	init_3d_rendering(t_cub *data)

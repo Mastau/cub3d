@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/21 12:03:22 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/21 14:16:44 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct s_cub
 	mlx_window	*win;
 	t_player	*player;
 	t_keys		keys;
-	t_textures *textures;
+	t_textures	*textures;
 
 }	t_cub;
 

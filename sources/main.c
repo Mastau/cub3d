@@ -6,13 +6,12 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 18:14:59 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/21 11:05:30 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/21 14:04:13 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub.h>
 #include <debug.h>
-#include <minimap.h>
 #include <rendering.h>
 
 int	main(void)

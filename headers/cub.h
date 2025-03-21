@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/17 15:36:19 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/21 14:16:44 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,19 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define FOV 60
-# define MOVE_SPEED 0.05
-# define ROTATION_SPEED 0.03
+# define MOVE_SPEED 0.10
+# define ROTATION_SPEED 0.08
+# define WALL_HEIGHT 800
+
+typedef struct s_textures
+{
+	mlx_image	no;
+	mlx_image	so;
+	mlx_image	we;
+	mlx_image	ea;
+	int			width;
+	int			height;
+}	t_textures;
 
 typedef struct s_vector
 {
@@ -49,6 +60,7 @@ typedef struct s_keys
 	int	d;
 	int	left;
 	int	right;
+	int	sprint;
 }	t_keys;
 
 typedef struct s_cub
@@ -64,6 +76,7 @@ typedef struct s_cub
 	mlx_window	*win;
 	t_player	*player;
 	t_keys		keys;
+	t_textures	*textures;
 
 }	t_cub;
 

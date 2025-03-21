@@ -4,7 +4,7 @@ LIBFT_PATH = lib/Libft
 MLX_PATH = lib/MacroLibX
 LIBFT = $(LIBFT_PATH)/libft.a
 MLX = $(MLX_PATH)/libmlx.so
-CFLAGS = -Werror -Wall -Wextra -g
+CFLAGS = -Werror -Wall -Wextra
 LDFLAGS = -lm -lSDL2
 DIROBJS = .objs
 OBJS = $(SRCS:%.c=$(DIROBJS)/%.o)
@@ -15,18 +15,19 @@ SRCS =	sources/main.c \
 		sources/algo/ray_cast.c \
 		sources/algo/init_ray_steps.c \
 		sources/algo/calculate_intersection.c \
-		sources/macro/minimap.c \
+		sources/algo/get_player_orientation.c \
 		sources/macro/hook.c \
 		sources/macro/moves.c \
 		sources/macro/rotates.c \
-		sources/minimap/map/draw_map.c \
-		sources/minimap/map/draw_title.c \
-		sources/minimap/map/get_player_orientation.c \
-		sources/minimap/raycasting/cast_ray.c \
-		sources/minimap/rendering/draw_ray.c \
-		sources/minimap/rendering/draw_square.c \
-		sources/minimap/rendering/draw_player.c \
-    	fake_data.c # A supprimer pour le rendu
+		sources/rendering/draw_vertical_line.c \
+		sources/rendering/rendering.c \
+		sources/rendering/init.c \
+		sources/rendering/init2.c \
+		sources/rendering/determine_wall_orentation.c \
+		sources/rendering/render_3d_view.c \
+		sources/rendering/load_textures.c \
+		sources/utils/convert_rgb_str_to_color.c \
+    	fake_data.c # ! A supprimer pour le rendu
 
 # Couleurs et emojis
 RED := \033[1;31m
@@ -46,30 +47,30 @@ all: init $(NAME)
 
 init:
 	@if [ ! -d "$(LIBFT_PATH)" ] || [ ! -d "$(MLX_PATH)" ]; then \
-        echo "$(YELLOW)$(BUILD_EMOJI) Initialisation des submodules...$(RESET)"; \
-        git submodule init; \
-        git submodule update; \
-    fi
+		echo "$(YELLOW)$(BUILD_EMOJI) Initializing submodules...$(RESET)"; \
+		git submodule init; \
+		git submodule update; \
+	fi
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
-	@echo "$(YELLOW)$(BUILD_EMOJI)  Compilation finale en cours...$(RESET)"
+	@echo "$(YELLOW)$(BUILD_EMOJI)  Final compilation in progress...$(RESET)"
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX) $(LDFLAGS) $(HEADER) -o $@
-	@echo "$(GREEN)$(SUCCESS_EMOJI)  Compilation terminée !$(RESET)"
+	@echo "$(GREEN)$(SUCCESS_EMOJI)  Compilation complete!$(RESET)"
 
 $(DIROBJS)/%.o: %.c
 	@$(DIR_UP)
-	@echo "$(YELLOW)$(BUILD_EMOJI)  Compilation de $<...$(RESET)"
+	@echo "$(YELLOW)$(BUILD_EMOJI)  Compiling $<...$(RESET)"
 	@$(CC) $(CFLAGS) $(HEADER) -c $< -o $@
 
 $(LIBFT):
-	@echo "$(YELLOW)$(BUILD_EMOJI)  Compilation de la Libft...$(RESET)"
+	@echo "$(YELLOW)$(BUILD_EMOJI)  Compiling Libft...$(RESET)"
 	@make -C $(LIBFT_PATH)
-	@echo "$(GREEN)$(SUCCESS_EMOJI)  Libft compilée !$(RESET)"
+	@echo "$(GREEN)$(SUCCESS_EMOJI)  Libft compiled!$(RESET)"
 
 $(MLX):
 	@echo "$(YELLOW)$(BUILD_EMOJI)  Compilation de la MLX...$(RESET)"
 	@make -C $(MLX_PATH) -j
-	@echo "$(GREEN)$(SUCCESS_EMOJI)  MLX compilée !$(RESET)"
+	@echo "$(GREEN)$(SUCCESS_EMOJI)  MLX compiled !$(RESET)"
 
 clean:
 	@$(RM) $(DIROBJS)

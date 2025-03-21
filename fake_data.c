@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:49:52 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/17 12:14:50 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/21 10:52:12 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,28 @@ t_cub   init_fake_data(void)
 	fake.so = lp_alloc(sizeof(char) * 19);
 	fake.we = lp_alloc(sizeof(char) * 19);
 	fake.ea = lp_alloc(sizeof(char) * 19);
-	fake.floor = lp_alloc(sizeof(char) * 10);
-	fake.ceiling = lp_alloc(sizeof(char) * 9);
+	fake.floor = lp_alloc(sizeof(char) * 12);
+	fake.ceiling = lp_alloc(sizeof(char) * 13);
 
-	ft_strlcpy(fake.no, "../textures/no.png", 19);
-	ft_strlcpy(fake.so, "../textures/so.png", 19);
-	ft_strlcpy(fake.we, "../textures/we.png", 19);
-	ft_strlcpy(fake.ea, "../textures/ea.png", 19);
-	ft_strlcpy(fake.floor, "220,100,0", 10);
-	ft_strlcpy(fake.ceiling, "225,30,0", 9);
+	ft_strlcpy(fake.no, "./textures/no.png", 19);
+	ft_strlcpy(fake.so, "./textures/so.png", 19);
+	ft_strlcpy(fake.we, "./textures/we.png", 19);
+	ft_strlcpy(fake.ea, "./textures/ea.png", 19);
+	ft_strlcpy(fake.floor, "50,50,50", 12);
+	ft_strlcpy(fake.ceiling, "25,25,112", 13);
 
 	map[0] = ft_strdup("        1111111111111111111111111");
 	map[1] = ft_strdup("        1000000000110000000000001");
-	map[2] = ft_strdup("        1011000001110000000000001");
+	map[2] = ft_strdup("        101100000111000100W000001");
 	map[3] = ft_strdup("        1001000000000000000000001");
 	map[4] = ft_strdup("111111111011000001110000000000001");
 	map[5] = ft_strdup("100000000011000001110111100011111");
 	map[6] = ft_strdup("11110111111111011100000010001");
 	map[7] = ft_strdup("11110111111111011101010010001");
-	map[8] = ft_strdup("11000000110101011100000010001");
+	map[8] = ft_strdup("11000000110101011100000010101");
 	map[9] = ft_strdup("10000000000000001100000010001");
 	map[10] = ft_strdup("10000000000000001101010010001");
-	map[11] = ft_strdup("11000001110101011111011110S0111");
+	map[11] = ft_strdup("1100000111010101111101111000111");
 	map[12] = ft_strdup("11110111 1110101 101111010001");
 	map[13] = ft_strdup("11111111 1111111 111111111111");
 	map[14] = NULL;

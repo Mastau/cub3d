@@ -6,14 +6,14 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 12:39:28 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/20 18:42:51 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:13:21 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAYCAST_H
 # define RAYCAST_H
 
-# include <cub.h>
+#include <cub.h>
 
 typedef struct s_ray
 {

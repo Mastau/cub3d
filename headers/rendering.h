@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 17:11:54 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/20 18:42:34 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:12:58 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,6 @@
 
 # include <cub.h>
 # include <raycast.h>
-
-typedef struct s_textures
-{
-	mlx_image	no;
-	mlx_image	so;
-	mlx_image	we;
-	mlx_image	ea;
-	int			width;
-	int			height;
-}	t_textures;
 
 typedef struct s_line_data
 {

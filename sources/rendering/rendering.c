@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:34:18 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/20 18:35:06 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:51:54 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,32 @@
 #include <raycast.h>
 #include <rendering.h>
 #include <utils.h>
+
+static void	update_3d_view(void *param)
+{
+    t_cub	*data;
+
+    data = (t_cub *)param;
+    if (data->keys.w)
+        move_player_forward(data);
+    if (data->keys.s)
+        move_player_backward(data);
+    if (data->keys.a)
+        move_player_left(data);
+    if (data->keys.d)
+        move_player_right(data);
+    if (data->keys.left)
+        rotate_player_left(data);
+    if (data->keys.right)
+        rotate_player_right(data);
+    if (data->keys.w || data->keys.s || data->keys.a
+        || data->keys.d || data->keys.left || data->keys.right)
+    {
+        mlx_color clear_color = (mlx_color){{0, 0, 0, 255}};
+        mlx_clear_window(*data->mlx, *data->win, clear_color);
+        render_3d_view(*data->mlx, *data->win, data, data->textures);
+    }
+}
 
 void	init_3d_rendering(t_cub *data)
 {
@@ -30,10 +56,13 @@ void	init_3d_rendering(t_cub *data)
 	win = mlx_new_window(*data->mlx, &info);
 	data->win = &win;
 	textures = load_textures(mlx, data);
+	data->textures = &textures;
 	render_3d_view(mlx, win, data, &textures);
-	mlx_set_fps_goal(mlx, 60);
+	mlx_set_fps_goal(mlx, 120);
 	mlx_on_event(mlx, win, MLX_WINDOW_EVENT, window_hook, data);
 	mlx_on_event(mlx, win, MLX_KEYDOWN, key_press_hook, data);
+	mlx_on_event(mlx, win, MLX_KEYUP, key_release_hook, data);
+	mlx_add_loop_hook(mlx, update_3d_view, data);
 	mlx_loop(mlx);
 	mlx_destroy_image(mlx, textures.no);
 	mlx_destroy_image(mlx, textures.so);

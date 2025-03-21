@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:49:52 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/20 16:54:02 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/21 10:52:12 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ t_cub   init_fake_data(void)
 	fake.so = lp_alloc(sizeof(char) * 19);
 	fake.we = lp_alloc(sizeof(char) * 19);
 	fake.ea = lp_alloc(sizeof(char) * 19);
-	fake.floor = lp_alloc(sizeof(char) * 10);
-	fake.ceiling = lp_alloc(sizeof(char) * 9);
+	fake.floor = lp_alloc(sizeof(char) * 12);
+	fake.ceiling = lp_alloc(sizeof(char) * 13);
 
-	ft_strlcpy(fake.no, "./textures/no.png", 18);
-	ft_strlcpy(fake.so, "./textures/so.png", 18);
-	ft_strlcpy(fake.we, "./textures/we.png", 18);
-	ft_strlcpy(fake.ea, "./textures/ea.png", 18);
-	ft_strlcpy(fake.floor, "50,50,50", 10);
-	ft_strlcpy(fake.ceiling, "25,25,112", 10);
+	ft_strlcpy(fake.no, "./textures/no.png", 19);
+	ft_strlcpy(fake.so, "./textures/so.png", 19);
+	ft_strlcpy(fake.we, "./textures/we.png", 19);
+	ft_strlcpy(fake.ea, "./textures/ea.png", 19);
+	ft_strlcpy(fake.floor, "50,50,50", 12);
+	ft_strlcpy(fake.ceiling, "25,25,112", 13);
 
 	map[0] = ft_strdup("        1111111111111111111111111");
 	map[1] = ft_strdup("        1000000000110000000000001");

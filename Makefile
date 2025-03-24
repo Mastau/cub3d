@@ -13,6 +13,9 @@ SRCS = sources/main.c \
 	   sources/color.c \
 	   sources/path.c \
 	   sources/parsing.c \
+	   sources/map.c \
+	   sources/utils.c \
+	   sources/cells.c \
 
 
 # Couleurs et emojis

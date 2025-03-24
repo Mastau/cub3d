@@ -6,7 +6,7 @@
 /*   By: thomarna <thomarna@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 14:20:46 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/21 16:01:31 by thomarna         ###   ########.fr       */
+/*   Updated: 2025/03/24 13:43:38 by thomarna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static char	*extract_path(char *line)
 static char	*parsing_path_step2(t_cub *data, char *line)
 {
 	char	*path;
+
 	if (ft_strncmp(line, "WE", 2) == 0)
 	{
 		path = extract_path(line + 2);
@@ -46,6 +47,7 @@ static char	*parsing_path_step2(t_cub *data, char *line)
 int	parsing_path(t_cub *data, char *line)
 {
 	char	*path;
+
 	printf("oui\n");
 	line = skip_spaces(line);
 	if (ft_strncmp(line, "NO", 2) == 0)

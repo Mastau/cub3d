@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 09:10:39 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/25 13:25:12 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:35:11 by thomarna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_cub	*init_data(void)
 {
 	t_cub	*data;
 
-	data = malloc(sizeof(t_cub));
+	data = lp_alloc(sizeof(t_cub));
 	if (!data)
 		return (NULL);
 	ft_memset(data, 0, sizeof(t_cub));
@@ -37,13 +37,8 @@ t_cub	*init_data(void)
 
 int	parsing_checker(t_cub *data)
 {
-	if (!data->ceiling_color || !data->floor_color || !data->ea || !data->no || !data->so
+	if (!data->ceiling || !data->floor || !data->ea || !data->no || !data->so
 		|| !data->we)
-		return (1);
-	if (data->floor_color->r == -1 && data->floor_color->g == -1 && data->floor_color->b == -1)
-		return (1);
-	if (data->ceiling_color->r == -1 && data->ceiling_color->g == -1 && data->ceiling_color->b ==
-		-1)
 		return (1);
 	return (0);
 }

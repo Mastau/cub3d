@@ -2,10 +2,10 @@ C 100,0,255
 
 F 0,255,50
 
-             WE./image/64x64.xpm                  
-NO  ./image/bookshelf.xpm
-SO ./image/BrickOv.xpm
-EA ./image/Bricks.xpm 
+             WE./image/we.png                  
+NO  ./image/no.png
+SO ./image/so.png
+EA ./image/ea.png 
 
 
         1111111111111111111111111

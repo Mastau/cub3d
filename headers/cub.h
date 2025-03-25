@@ -6,17 +6,17 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/25 13:24:23 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:58:15 by thomarna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
-# include <stdio.h>
-# include <math.h>
 # include <libft.h>
+# include <math.h>
 # include <mlx.h>
+# include <stdio.h>
 
 # define M_PI 3.14159265358979323846
 # define WIDTH 1042
@@ -28,17 +28,17 @@
 
 typedef struct s_rgb
 {
-	int		r;
-	int		g;
-	int		b;
-}			t_rgb;
+	int			r;
+	int			g;
+	int			b;
+}				t_rgb;
 
 typedef struct s_param
 {
-	int		i;
-	int		height;
-	int		prev_len;
-}			t_param;
+	int			i;
+	int			height;
+	int			prev_len;
+}				t_param;
 
 typedef struct s_textures
 {
@@ -48,13 +48,13 @@ typedef struct s_textures
 	mlx_image	ea;
 	int			width;
 	int			height;
-}	t_textures;
+}				t_textures;
 
 typedef struct s_vector
 {
-	double	x;
-	double	y;
-}	t_vector;
+	double		x;
+	double		y;
+}				t_vector;
 
 typedef struct s_player
 {
@@ -64,25 +64,25 @@ typedef struct s_player
 	char		**map;
 	int			map_width;
 	int			map_height;
-}	t_player;
+}				t_player;
 
 typedef struct s_keys
 {
-	int	w;
-	int	s;
-	int	a;
-	int	d;
-	int	left;
-	int	right;
-	int	sprint;
-}	t_keys;
+	int			w;
+	int			s;
+	int			a;
+	int			d;
+	int			left;
+	int			right;
+	int			sprint;
+}				t_keys;
 
 typedef struct s_mlx
 {
-	void	*con;
-	void	*win;
-	void	*img;
-}	t_mlx;
+	void		*con;
+	void		*win;
+	void		*img;
+}				t_mlx;
 
 typedef struct s_intersection_data
 {
@@ -91,47 +91,47 @@ typedef struct s_intersection_data
 	double		ray_dir_x;
 	double		ray_dir_y;
 	double		dist;
-}	t_intersection_data;
+}				t_intersection_data;
 
 typedef struct s_cub
 {
 	char		**map;
-  char	*map_line;
+	char		*map_line;
 	char		*no;
 	char		*so;
 	char		*we;
 	char		*ea;
 	char		*floor;
 	char		*ceiling;
-  	t_rgb	  *floor_color;
-	t_rgb	  *ceiling_color;
+	t_rgb		*floor_color;
+	t_rgb		*ceiling_color;
 	mlx_context	*mlx;
 	mlx_window	*win;
 	t_player	*player;
 	t_keys		keys;
 	t_textures	*textures;
 
-}	t_cub;
+}				t_cub;
 
-void	initialize_player(t_player *player, t_cub *data);
-void	ray_cast(t_player *player, double angle, int *hit,
-			t_vector *intersection);
-double	degree_to_radian(double degree);
-void	window_hook(int event, void *param);
-void	draw_map(mlx_context mlx, mlx_window win,
-			t_cub *data, t_player *player);
+void			initialize_player(t_player *player, t_cub *data);
+void			ray_cast(t_player *player, double angle, int *hit,
+					t_vector *intersection);
+double			degree_to_radian(double degree);
+void			window_hook(int event, void *param);
+void			draw_map(mlx_context mlx, mlx_window win, t_cub *data,
+					t_player *player);
 
-t_cub		*parsing_map(t_cub *data, char *line, int fd);
-int			char_start_checker(char c, char *charset);
-int			start_checker(char *str);
-int			map_fill(t_cub *data);
-int			map_error(void);
-int			check_cell(char **map, int j, int curr_len, t_param *param);
+char			*skip_spaces(char *str);
+t_cub			*parsing_map(t_cub *data, char *line, int fd);
+int				char_start_checker(char c, char *charset);
+int				start_checker(char *str);
+int				map_fill(t_cub *data);
+int				map_error(void);
+int				check_cell(char **map, int j, int curr_len, t_param *param);
 
-t_cub		*parsing_data(int fd);
-char		*skip_spaces(char *str);
-int			check_prefix(char *line);
-int			parsing_color(t_cub *data, char *line);
-int			parsing_path(t_cub *data, char *line);
+t_cub			*parsing_data(int fd);
+int				check_prefix(char *line);
+int				parsing_color(t_cub *data, char *line);
+int				parsing_path(t_cub *data, char *line);
 
 #endif

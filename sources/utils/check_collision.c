@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   check_collision.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/20 17:18:06 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/25 14:13:58 by jlorette         ###   ########.fr       */
+/*   Created: 2025/03/25 14:13:14 by jlorette          #+#    #+#             */
+/*   Updated: 2025/03/25 14:13:28 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include <cub.h>
 
-# include <cub.h>
-
-unsigned int	convert_rgb_str_to_color(char *rgb_str);
-int				check_collision(t_cub *data, double x, double y, char axis);
-
-#endif
+int	check_collision(t_cub *data, double x, double y, char axis)
+{
+    if (axis == 'x')
+        return (data->player->map[(int)data->player->pos.y][(int)x] == '1');
+    return (data->player->map[(int)y][(int)data->player->pos.x] == '1');
+}

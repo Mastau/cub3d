@@ -26,6 +26,7 @@ SRCS =	sources/main.c \
 		sources/rendering/determine_wall_orentation.c \
 		sources/rendering/render_3d_view.c \
 		sources/rendering/load_textures.c \
+		sources/utils/check_collision.c \
 		sources/utils/convert_rgb_str_to_color.c \
 		sources/parsing/cells.c \
 		sources/parsing/color.c \

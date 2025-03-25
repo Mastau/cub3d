@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 17:57:02 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/20 18:32:29 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/25 08:40:20 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	determine_wall_orientation_part1(t_ray_data *ray, t_player *player)
 
 	x_diff = ray->intersection.x - player->pos.x;
 	y_diff = ray->intersection.y - player->pos.y;
-	if (fabs(ray->intersection.x - round(ray->intersection.x)) < 0.001)
+	if (fabs(ray->intersection.x - round(ray->intersection.x)) < 0.00001)
 	{
 		if (x_diff > 0)
 			ray->wall_orientation = 1;
@@ -29,7 +29,7 @@ void	determine_wall_orientation_part1(t_ray_data *ray, t_player *player)
 			ray->wall_orientation = 3;
 		ray->wall_x = ray->intersection.y - floor(ray->intersection.y);
 	}
-	else if (fabs(ray->intersection.y - round(ray->intersection.y)) < 0.001)
+	else if (fabs(ray->intersection.y - round(ray->intersection.y)) < 0.00001)
 		determine_wall_orientation_part2(ray, y_diff);
 	else
 		determine_wall_orientation_part3(ray, x_diff, y_diff);

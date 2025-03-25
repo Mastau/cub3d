@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/25 15:59:50 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:36:29 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,15 +97,15 @@ typedef struct s_intersection_data
 typedef struct s_cub
 {
 	char		**map;
-  char	*map_line;
+	char		*map_line;
 	char		*no;
 	char		*so;
 	char		*we;
 	char		*ea;
 	char		*floor;
 	char		*ceiling;
-  	t_rgb	  *floor_color;
-	t_rgb	  *ceiling_color;
+	t_rgb		*floor_color;
+	t_rgb		*ceiling_color;
 	mlx_context	*mlx;
 	mlx_window	*win;
 	t_player	*player;
@@ -122,17 +122,17 @@ void	window_hook(int event, void *param);
 void	draw_map(mlx_context mlx, mlx_window win,
 			t_cub *data, t_player *player);
 
-t_cub		*parsing_map(t_cub *data, char *line, int fd);
-int			char_start_checker(char c, char *charset);
-int			start_checker(char *str);
-int			map_fill(t_cub *data);
-int			map_error(void);
-int			check_cell(char **map, int j, int curr_len, t_param *param);
+t_cub	*parsing_map(t_cub *data, char *line, int fd);
+int		char_start_checker(char c, char *charset);
+int		start_checker(char *str);
+int		map_fill(t_cub *data);
+int		map_error(void);
+int		check_cell(char **map, int j, int curr_len, t_param *param);
 
-t_cub		*parsing_data(int fd);
-char		*skip_spaces(char *str);
-int			check_prefix(char *line);
-int			parsing_color(t_cub *data, char *line);
-int			parsing_path(t_cub *data, char *line);
+t_cub	*parsing_data(int fd);
+char	*skip_spaces(char *str);
+int		check_prefix(char *line);
+int		parsing_color(t_cub *data, char *line);
+int		parsing_path(t_cub *data, char *line);
 
 #endif

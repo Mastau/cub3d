@@ -34,7 +34,6 @@ SRCS =	sources/main.c \
 		sources/parsing/parsing.c \
 		sources/parsing/path.c \
 		sources/parsing/utils.c \
-    	fake_data.c # ! A supprimer pour le rendu
 
 # Couleurs et emojis
 RED := \033[1;31m
@@ -50,7 +49,7 @@ RM := rm -rf
 DIR_UP = mkdir -p $(@D)
 MAKEFLAGS += --no-print-directory
 
-all: init $(NAME)
+all: $(NAME)
 
 init:
 	@if [ ! -d "$(LIBFT_PATH)" ] || [ ! -d "$(MLX_PATH)" ]; then \
@@ -87,7 +86,7 @@ clean:
 	@if [ -d "$(MLX_PATH)" ]; then \
         make -C $(MLX_PATH) clean; \
     fi
-	@echo "$(RED)$(CLEAN_EMOJI)  Objets supprimés !$(RESET)"
+	@echo "$(RED)$(CLEAN_EMOJI)  Objects deleted!$(RESET)"
 
 fclean: clean
 	@$(RM) $(NAME)
@@ -97,7 +96,7 @@ fclean: clean
 	@if [ -d "$(MLX_PATH)" ]; then \
         make -C $(MLX_PATH) fclean; \
     fi
-	@echo "$(RED)$(CLEAN_EMOJI)  Exécutable et librairies supprimés !$(RESET)"
+	@echo "$(RED)$(CLEAN_EMOJI)  Executable and libraries deleted!$(RESET)"
 
 re: fclean all
 

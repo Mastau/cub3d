@@ -6,14 +6,41 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 14:42:45 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/25 16:21:29 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:25:58 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub.h>
-#include <debug.h>
 #include <rendering.h>
 #include <fcntl.h>
+
+static void	free_cub(t_cub *data)
+{
+	int	i;
+
+	if (data->no)
+		lp_free(data->no);
+	if (data->so)
+		lp_free(data->so);
+	if (data->we)
+		lp_free(data->we);
+	if (data->ea)
+		lp_free(data->ea);
+	if (data->floor)
+		lp_free(data->floor);
+	if (data->ceiling)
+		lp_free(data->ceiling);
+	if (data->map)
+	{
+		i = 0;
+		while (data->map[i])
+		{
+			lp_free(data->map[i]);
+			i++;
+		}
+		lp_free(data->map);
+	}
+}
 
 void	check_display(char **env)
 {

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/21 14:16:44 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:56:18 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 # include <mlx.h>
 
 # define M_PI 3.14159265358979323846
-# define WIDTH 1920
-# define HEIGHT 1080
-# define FOV 60
-# define MOVE_SPEED 0.10
-# define ROTATION_SPEED 0.08
+# define WIDTH 1042
+# define HEIGHT 720
+# define FOV 40
+# define MOVE_SPEED 0.06
+# define ROTATION_SPEED 0.06
 # define WALL_HEIGHT 800
 
 typedef struct s_textures

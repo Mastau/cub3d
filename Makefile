@@ -27,6 +27,12 @@ SRCS =	sources/main.c \
 		sources/rendering/render_3d_view.c \
 		sources/rendering/load_textures.c \
 		sources/utils/convert_rgb_str_to_color.c \
+		sources/parsing/cells.c \
+		sources/parsing/color.c \
+		sources/parsing/map.c \
+		sources/parsing/parsing.c \
+		sources/parsing/path.c \
+		sources/parsing/utils.c \
     	fake_data.c # ! A supprimer pour le rendu
 
 # Couleurs et emojis

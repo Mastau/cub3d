@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thomarna <thomarna@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 09:10:39 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/24 13:43:17 by thomarna         ###   ########.fr       */
+/*   Updated: 2025/03/25 13:25:12 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,29 @@ t_cub	*init_data(void)
 	if (!data)
 		return (NULL);
 	ft_memset(data, 0, sizeof(t_cub));
-	data->floor = lp_alloc(sizeof(t_rgb));
-	data->ceiling = lp_alloc(sizeof(t_rgb));
-	if (!data->ceiling || !data->floor)
+	data->floor_color = lp_alloc(sizeof(t_rgb));
+	data->ceiling_color = lp_alloc(sizeof(t_rgb));
+	if (!data->ceiling_color || !data->floor_color)
 	{
-		free(data->floor);
-		free(data->ceiling);
+		free(data->floor_color);
+		free(data->ceiling_color);
 		free(data);
 		return (NULL);
 	}
-	ft_memset(data->ceiling, -1, sizeof(t_rgb));
-	ft_memset(data->floor, -1, sizeof(t_rgb));
+	ft_memset(data->ceiling_color, -1, sizeof(t_rgb));
+	ft_memset(data->floor_color, -1, sizeof(t_rgb));
 	printf("Data init\n");
 	return (data);
 }
 
 int	parsing_checker(t_cub *data)
 {
-	if (!data->ceiling || !data->floor || !data->ea || !data->no || !data->so
+	if (!data->ceiling_color || !data->floor_color || !data->ea || !data->no || !data->so
 		|| !data->we)
 		return (1);
-	if (data->floor->r == -1 && data->floor->g == -1 && data->floor->b == -1)
+	if (data->floor_color->r == -1 && data->floor_color->g == -1 && data->floor_color->b == -1)
 		return (1);
-	if (data->ceiling->r == -1 && data->ceiling->g == -1 && data->ceiling->b ==
+	if (data->ceiling_color->r == -1 && data->ceiling_color->g == -1 && data->ceiling_color->b ==
 		-1)
 		return (1);
 	return (0);

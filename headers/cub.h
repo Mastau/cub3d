@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/24 13:10:31 by thomarna         ###   ########.fr       */
+/*   Updated: 2025/03/25 13:24:23 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,6 @@ typedef struct s_rgb
 	int		g;
 	int		b;
 }			t_rgb;
-
-typedef struct s_cub
-{
-	char		**map;
-  char	*map_line;
-	char		*no;
-	char		*so;
-	char		*we;
-	char		*ea;
-	char		*floor;
-	char		*ceiling;
-  t_rgb	  *floor;
-	t_rgb	  *ceiling;
-	mlx_context	*mlx;
-	mlx_window	*win;
-	t_player	*player;
-	t_keys		keys;
-	t_textures	*textures;
-
-}	t_cub;
 
 typedef struct s_param
 {
@@ -113,6 +93,26 @@ typedef struct s_intersection_data
 	double		dist;
 }	t_intersection_data;
 
+typedef struct s_cub
+{
+	char		**map;
+  char	*map_line;
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+	char		*floor;
+	char		*ceiling;
+  	t_rgb	  *floor_color;
+	t_rgb	  *ceiling_color;
+	mlx_context	*mlx;
+	mlx_window	*win;
+	t_player	*player;
+	t_keys		keys;
+	t_textures	*textures;
+
+}	t_cub;
+
 void	initialize_player(t_player *player, t_cub *data);
 void	ray_cast(t_player *player, double angle, int *hit,
 			t_vector *intersection);
@@ -133,4 +133,5 @@ char		*skip_spaces(char *str);
 int			check_prefix(char *line);
 int			parsing_color(t_cub *data, char *line);
 int			parsing_path(t_cub *data, char *line);
+
 #endif

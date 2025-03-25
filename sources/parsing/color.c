@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thomarna <thomarna@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:57:15 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/24 14:10:52 by thomarna         ###   ########.fr       */
+/*   Updated: 2025/03/25 13:19:54 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,16 @@ int	parsing_color(t_cub *data, char *line)
 	if (type == 'F')
 	{
 		printf("F: r%d, g%d, b%d\n", r, g, b);
-		data->floor->r = r;
-		data->floor->g = g;
-		data->floor->b = b;
+		data->floor_color->r = r;
+		data->floor_color->g = g;
+		data->floor_color->b = b;
 	}
 	else
 	{
 		printf("C: r%d, g%d, b%d\n", r, g, b);
-		data->ceiling->r = r;
-		data->ceiling->g = g;
-		data->ceiling->b = b;
+		data->ceiling_color->r = r;
+		data->ceiling_color->g = g;
+		data->ceiling_color->b = b;
 	}
 	return (0);
 }

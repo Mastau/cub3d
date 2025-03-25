@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/25 12:56:18 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/24 13:10:31 by thomarna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,40 @@
 # define MOVE_SPEED 0.06
 # define ROTATION_SPEED 0.06
 # define WALL_HEIGHT 800
+
+typedef struct s_rgb
+{
+	int		r;
+	int		g;
+	int		b;
+}			t_rgb;
+
+typedef struct s_cub
+{
+	char		**map;
+  char	*map_line;
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+	char		*floor;
+	char		*ceiling;
+  t_rgb	  *floor;
+	t_rgb	  *ceiling;
+	mlx_context	*mlx;
+	mlx_window	*win;
+	t_player	*player;
+	t_keys		keys;
+	t_textures	*textures;
+
+}	t_cub;
+
+typedef struct s_param
+{
+	int		i;
+	int		height;
+	int		prev_len;
+}			t_param;
 
 typedef struct s_textures
 {
@@ -63,23 +97,6 @@ typedef struct s_keys
 	int	sprint;
 }	t_keys;
 
-typedef struct s_cub
-{
-	char		**map;
-	char		*no;
-	char		*so;
-	char		*we;
-	char		*ea;
-	char		*floor;
-	char		*ceiling;
-	mlx_context	*mlx;
-	mlx_window	*win;
-	t_player	*player;
-	t_keys		keys;
-	t_textures	*textures;
-
-}	t_cub;
-
 typedef struct s_mlx
 {
 	void	*con;
@@ -104,4 +121,16 @@ void	window_hook(int event, void *param);
 void	draw_map(mlx_context mlx, mlx_window win,
 			t_cub *data, t_player *player);
 
+t_cub		*parsing_map(t_cub *data, char *line, int fd);
+int			char_start_checker(char c, char *charset);
+int			start_checker(char *str);
+int			map_fill(t_cub *data);
+int			map_error(void);
+int			check_cell(char **map, int j, int curr_len, t_param *param);
+
+t_cub		*parsing_data(int fd);
+char		*skip_spaces(char *str);
+int			check_prefix(char *line);
+int			parsing_color(t_cub *data, char *line);
+int			parsing_path(t_cub *data, char *line);
 #endif

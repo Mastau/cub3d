@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thomarna <thomarna@42angouleme.fr>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/12 09:10:47 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/24 13:43:28 by thomarna         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cub.h"
 #include "fcntl.h"
 #include "libft.h"
@@ -42,4 +30,20 @@ int	main(int ac, char **av)
 		i++;
 	}
 	free(data);
+
+#include <cub.h>
+#include <debug.h>
+#include <rendering.h>
+
+int	main(void)
+{
+	t_cub		data;
+	t_player	player;
+
+	data = init_fake_data();
+	initialize_player(&player, &data);
+	data.player = &player;
+	init_3d_rendering(&data);
+	free_cub(&data);
+	return (0);
 }

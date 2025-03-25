@@ -11,6 +11,7 @@
 *.ko
 *.obj
 *.elf
+*.objs
 
 # Linker output
 *.ilk
@@ -59,3 +60,6 @@ compile_commands.json
 .cache/
 cub3d
 
+# custom
+.vscode
+cub3d

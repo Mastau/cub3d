@@ -25,6 +25,8 @@
 # define MOVE_SPEED 0.06
 # define ROTATION_SPEED 0.06
 # define WALL_HEIGHT 800
+# define WALL_MARGIN 0.3
+# define ANGLE_MARGIN 0.1
 
 typedef struct s_rgb
 {
@@ -110,7 +112,6 @@ typedef struct s_cub
 	t_player	*player;
 	t_keys		keys;
 	t_textures	*textures;
-
 }				t_cub;
 
 int				check_param(int ac, char **av);

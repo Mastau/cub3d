@@ -6,7 +6,7 @@
 /*   By: thomarna <thomarna@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:07:22 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/25 16:05:41 by thomarna         ###   ########.fr       */
+/*   Updated: 2025/03/26 15:27:54 by thomarna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	start_checker(char *str)
 
 int	map_error(void)
 {
-	ft_putstr_fd("Error\nBad element in map\n", 2);
+	ft_putstr_fd("Error: Bad element in map\n", 2);
 	return (1);
 }
 

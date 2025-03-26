@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 09:10:39 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/26 13:40:14 by thomarna         ###   ########.fr       */
+/*   Updated: 2025/03/26 15:39:29 by thomarna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,15 @@ int	parsing_line(t_cub *data, char *line)
 				return (3);
 		}
 		else
-			return (3);
+			return (2);
 	}
 	else
 		return (1);
 	return (3);
 }
 
-void	*error_parsing(t_cub *data, char *line)
+void	*error_parsing(void)
 {
-	(void)data;
-	(void)line;
 	ft_putstr_fd("Error: Incorrect elements\n", 2);
 	return (NULL);
 }
@@ -86,7 +84,7 @@ t_cub	*parsing_data(int fd)
 			break ;
 		}
 		else if (res == 2)
-			return (error_parsing(data, line));
+			return (error_parsing());
 		else
 			continue ;
 	}

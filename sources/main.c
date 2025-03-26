@@ -6,13 +6,13 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 14:42:45 by jlorette          #+#    #+#             */
-/*   Updated: 2025/03/25 16:25:58 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/26 15:40:56 by thomarna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub.h>
-#include <rendering.h>
 #include <fcntl.h>
+#include <rendering.h>
 
 static void	free_cub(t_cub *data)
 {
@@ -63,7 +63,7 @@ int	main(int ac, char **av, char **env)
 	t_cub		*data;
 	t_player	player;
 	int			fd;
-	
+
 	check_display(env);
 	if (check_param(ac, av))
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 09:10:39 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/25 15:35:11 by thomarna         ###   ########.fr       */
+/*   Updated: 2025/03/26 13:40:14 by thomarna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,9 @@ t_cub	*init_data(void)
 	data->floor_color = lp_alloc(sizeof(t_rgb));
 	data->ceiling_color = lp_alloc(sizeof(t_rgb));
 	if (!data->ceiling_color || !data->floor_color)
-	{
-		free(data->floor_color);
-		free(data->ceiling_color);
-		free(data);
 		return (NULL);
-	}
 	ft_memset(data->ceiling_color, -1, sizeof(t_rgb));
 	ft_memset(data->floor_color, -1, sizeof(t_rgb));
-	printf("Data init\n");
 	return (data);
 }
 
@@ -47,12 +41,10 @@ int	parsing_line(t_cub *data, char *line)
 {
 	if (line == NULL)
 		return (0);
-	printf("Parsing Checker: %d\n", parsing_checker(data));
 	if (parsing_checker(data))
 	{
 		if (check_prefix(line))
 		{
-			printf("Prefix detected\n");
 			if (parsing_color(data, line) == 0 || parsing_path(data, line) == 0)
 				return (3);
 		}

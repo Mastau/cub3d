@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/25 15:58:15 by thomarna         ###   ########.fr       */
+/*   Updated: 2025/03/26 13:22:18 by thomarna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct s_cub
 
 }				t_cub;
 
+int				check_param(int ac, char **av);
 void			initialize_player(t_player *player, t_cub *data);
 void			ray_cast(t_player *player, double angle, int *hit,
 					t_vector *intersection);

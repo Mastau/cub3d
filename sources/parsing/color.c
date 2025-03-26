@@ -6,29 +6,50 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:57:15 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/25 13:19:54 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/26 15:40:36 by thomarna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+#include "libft.h"
 
-char	*skip_spaces(char *str)
+char	*assign_color(int r, int g, int b)
 {
-	while (*str == ' ' || *str == '\t')
-		str++;
-	return (str);
+	char	*tmp;
+
+	tmp = ft_strjoin(ft_itoa(r), ",");
+	tmp = ft_strjoin(tmp, ft_itoa(g));
+	tmp = ft_strjoin(tmp, ",");
+	tmp = ft_strjoin(tmp, ft_itoa(b));
+	return (tmp);
 }
 
-int	check_prefix(char *line)
+static int	parse_rgb(char **line, int *color)
 {
-	while (*line && (*line == ' ' || *line == '\n'))
-		line++;
-	if (*line == '\0')
-		return (1);
-	if (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2)
-		|| !ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2)
-		|| *line == 'F' || *line == 'C')
-		return (1);
+	if (!ft_isdigit(**line))
+		return (-1);
+	*color = ft_atoi(*line);
+	while (ft_isdigit(**line))
+		(*line)++;
+	*line = skip_spaces(*line);
+	return (0);
+}
+
+static int	validate_and_extract_colors(char *line, int *r, int *g, int *b)
+{
+	if (parse_rgb(&line, r) == -1 || *line != ',')
+		return (-1);
+	line = skip_spaces(line + 1);
+	if (parse_rgb(&line, g) == -1 || *line != ',')
+		return (-1);
+	line = skip_spaces(line + 1);
+	if (parse_rgb(&line, b) == -1)
+		return (-1);
+	line = skip_spaces(line);
+	if (*line != '\0' && *line != '\n')
+		return (-1);
+	if (*r < 0 || *r > 255 || *g < 0 || *g > 255 || *b < 0 || *b > 255)
+		return (-1);
 	return (0);
 }
 
@@ -43,52 +64,12 @@ int	parsing_color(t_cub *data, char *line)
 	type = *line;
 	if (type != 'F' && type != 'C')
 		return (-1);
-	line++;
-	line = skip_spaces(line);
-	if (!ft_isdigit(*line))
-		return (-1);
-	r = ft_atoi(line);
-	while (ft_isdigit(*line))
-		line++;
-	line = skip_spaces(line);
-	if (*line != ',')
-		return (-1);
-	line++;
-	line = skip_spaces(line);
-	if (!ft_isdigit(*line))
-		return (-1);
-	g = atoi(line);
-	while (ft_isdigit(*line))
-		line++;
-	line = skip_spaces(line);
-	if (*line != ',')
-		return (-1);
-	line++;
-	line = skip_spaces(line);
-	if (!ft_isdigit(*line))
-		return (-1);
-	b = atoi(line);
-	while (ft_isdigit(*line))
-		line++;
-	line = skip_spaces(line);
-	if (*line != '\0' && *line != '\n')
-		return (-1);
-	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+	line = skip_spaces(line + 1);
+	if (validate_and_extract_colors(line, &r, &g, &b) == -1)
 		return (-1);
 	if (type == 'F')
-	{
-		printf("F: r%d, g%d, b%d\n", r, g, b);
-		data->floor_color->r = r;
-		data->floor_color->g = g;
-		data->floor_color->b = b;
-	}
+		data->floor = assign_color(r, g, b);
 	else
-	{
-		printf("C: r%d, g%d, b%d\n", r, g, b);
-		data->ceiling_color->r = r;
-		data->ceiling_color->g = g;
-		data->ceiling_color->b = b;
-	}
+		data->ceiling = assign_color(r, g, b);
 	return (0);
 }
-

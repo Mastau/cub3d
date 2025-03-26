@@ -6,7 +6,7 @@
 /*   By: thomarna <thomarna@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 14:20:46 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/24 13:43:38 by thomarna         ###   ########.fr       */
+/*   Updated: 2025/03/26 13:41:08 by thomarna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static char	*extract_path(char *line)
 	if (*line == '\0' || *line == '\n')
 		return (NULL);
 	line = ft_strtrim(line, "\n \t");
-	printf("%s\n", line);
 	return (ft_strdup(line));
 }
 
@@ -31,13 +30,11 @@ static char	*parsing_path_step2(t_cub *data, char *line)
 	{
 		path = extract_path(line + 2);
 		data->we = path;
-		printf("WE: %s\n", path);
 	}
 	else if (ft_strncmp(line, "EA", 2) == 0)
 	{
 		path = extract_path(line + 2);
 		data->ea = path;
-		printf("EA: %s\n", path);
 	}
 	else
 		return (NULL);
@@ -48,19 +45,16 @@ int	parsing_path(t_cub *data, char *line)
 {
 	char	*path;
 
-	printf("oui\n");
 	line = skip_spaces(line);
 	if (ft_strncmp(line, "NO", 2) == 0)
 	{
 		path = extract_path(line + 2);
 		data->no = path;
-		printf("NO: %s\n", path);
 	}
 	else if (ft_strncmp(line, "SO", 2) == 0)
 	{
 		path = extract_path(line + 2);
 		data->so = path;
-		printf("SO: %s\n", path);
 	}
 	else if (ft_strncmp(line, "WE", 2) == 0 || ft_strncmp(line, "EA", 2) == 0)
 		path = parsing_path_step2(data, line);

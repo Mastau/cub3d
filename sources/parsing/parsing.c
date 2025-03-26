@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 09:10:39 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/25 13:25:12 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/26 15:39:29 by thomarna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,23 @@ t_cub	*init_data(void)
 {
 	t_cub	*data;
 
-	data = malloc(sizeof(t_cub));
+	data = lp_alloc(sizeof(t_cub));
 	if (!data)
 		return (NULL);
 	ft_memset(data, 0, sizeof(t_cub));
 	data->floor_color = lp_alloc(sizeof(t_rgb));
 	data->ceiling_color = lp_alloc(sizeof(t_rgb));
 	if (!data->ceiling_color || !data->floor_color)
-	{
-		free(data->floor_color);
-		free(data->ceiling_color);
-		free(data);
 		return (NULL);
-	}
 	ft_memset(data->ceiling_color, -1, sizeof(t_rgb));
 	ft_memset(data->floor_color, -1, sizeof(t_rgb));
-	printf("Data init\n");
 	return (data);
 }
 
 int	parsing_checker(t_cub *data)
 {
-	if (!data->ceiling_color || !data->floor_color || !data->ea || !data->no || !data->so
+	if (!data->ceiling || !data->floor || !data->ea || !data->no || !data->so
 		|| !data->we)
-		return (1);
-	if (data->floor_color->r == -1 && data->floor_color->g == -1 && data->floor_color->b == -1)
-		return (1);
-	if (data->ceiling_color->r == -1 && data->ceiling_color->g == -1 && data->ceiling_color->b ==
-		-1)
 		return (1);
 	return (0);
 }
@@ -52,27 +41,23 @@ int	parsing_line(t_cub *data, char *line)
 {
 	if (line == NULL)
 		return (0);
-	printf("Parsing Checker: %d\n", parsing_checker(data));
 	if (parsing_checker(data))
 	{
 		if (check_prefix(line))
 		{
-			printf("Prefix detected\n");
 			if (parsing_color(data, line) == 0 || parsing_path(data, line) == 0)
 				return (3);
 		}
 		else
-			return (3);
+			return (2);
 	}
 	else
 		return (1);
 	return (3);
 }
 
-void	*error_parsing(t_cub *data, char *line)
+void	*error_parsing(void)
 {
-	(void)data;
-	(void)line;
 	ft_putstr_fd("Error: Incorrect elements\n", 2);
 	return (NULL);
 }
@@ -99,7 +84,7 @@ t_cub	*parsing_data(int fd)
 			break ;
 		}
 		else if (res == 2)
-			return (error_parsing(data, line));
+			return (error_parsing());
 		else
 			continue ;
 	}

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/26 12:29:36 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/26 14:42:10 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define ROTATION_SPEED 0.06
 # define WALL_HEIGHT 800
 # define WALL_MARGIN 0.3
-# define ANGLE_MARGIN 0.1
+# define ANGLE_MARGIN 0.3
 
 typedef struct s_rgb
 {

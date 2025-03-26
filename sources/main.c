@@ -63,7 +63,8 @@ int	main(int ac, char **av, char **env)
 	t_cub		*data;
 	t_player	player;
 	int			fd;
-
+	
+	check_display(env);
 	if (check_param(ac, av))
 		return (1);
 	fd = open(av[1], O_RDONLY);

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:34:21 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/26 15:43:22 by thomarna         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:22:12 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,5 +136,6 @@ char			*skip_spaces(char *str);
 int				check_prefix(char *line);
 int				parsing_color(t_cub *data, char *line);
 int				parsing_path(t_cub *data, char *line);
+void			*error_parsing(void);
 
 #endif

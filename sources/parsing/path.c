@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thomarna <thomarna@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 14:20:46 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/26 13:41:08 by thomarna         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:23:50 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,15 @@ static char	*parsing_path_step2(t_cub *data, char *line)
 
 	if (ft_strncmp(line, "WE", 2) == 0)
 	{
+		if (data->we != NULL)
+			return (NULL);
 		path = extract_path(line + 2);
 		data->we = path;
 	}
 	else if (ft_strncmp(line, "EA", 2) == 0)
 	{
+		if (data->ea != NULL)
+			return (NULL);
 		path = extract_path(line + 2);
 		data->ea = path;
 	}
@@ -48,11 +52,15 @@ int	parsing_path(t_cub *data, char *line)
 	line = skip_spaces(line);
 	if (ft_strncmp(line, "NO", 2) == 0)
 	{
+		if (data->no != NULL)
+			return (-1);
 		path = extract_path(line + 2);
 		data->no = path;
 	}
 	else if (ft_strncmp(line, "SO", 2) == 0)
 	{
+		if (data->so != NULL)
+			return (-1);
 		path = extract_path(line + 2);
 		data->so = path;
 	}

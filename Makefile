@@ -1,4 +1,4 @@
-NAME = cub3d
+NAME = cub3D
 CC = cc
 LIBFT_PATH = lib/Libft
 MLX_PATH = lib/MacroLibX
@@ -35,6 +35,7 @@ SRCS =	sources/main.c \
 		sources/parsing/parsing.c \
 		sources/parsing/path.c \
 		sources/parsing/utils.c \
+		sources/parsing/error_parsing.c \
 
 # Couleurs et emojis
 RED := \033[1;31m

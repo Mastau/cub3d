@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 09:10:39 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/26 15:39:29 by thomarna         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:23:17 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,26 @@ int	parsing_checker(t_cub *data)
 	return (0);
 }
 
+int	parsing_prefix_elements(t_cub *data, char *line)
+{
+	int	result;
+
+	if (ft_strncmp(line, "F", 1) == 0 || ft_strncmp(line, "C", 1) == 0)
+	{
+		result = parsing_color(data, line);
+		if (result == -1)
+			return (2);
+		return (3);
+	}
+	else
+	{
+		result = parsing_path(data, line);
+		if (result == -1)
+			return (2);
+		return (3);
+	}
+}
+
 int	parsing_line(t_cub *data, char *line)
 {
 	if (line == NULL)
@@ -44,22 +64,13 @@ int	parsing_line(t_cub *data, char *line)
 	if (parsing_checker(data))
 	{
 		if (check_prefix(line))
-		{
-			if (parsing_color(data, line) == 0 || parsing_path(data, line) == 0)
-				return (3);
-		}
+			return (parsing_prefix_elements(data, line));
 		else
 			return (2);
 	}
 	else
 		return (1);
 	return (3);
-}
-
-void	*error_parsing(void)
-{
-	ft_putstr_fd("Error: Incorrect elements\n", 2);
-	return (NULL);
 }
 
 t_cub	*parsing_data(int fd)

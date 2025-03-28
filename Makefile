@@ -4,7 +4,7 @@ LIBFT_PATH = lib/Libft
 MLX_PATH = lib/MacroLibX
 LIBFT = $(LIBFT_PATH)/libft.a
 MLX = $(MLX_PATH)/libmlx.so
-CFLAGS = -Werror -Wall -Wextra
+CFLAGS = -Werror -Wall -Wextra -g
 LDFLAGS = -lm -lSDL2
 DIROBJS = .objs
 OBJS = $(SRCS:%.c=$(DIROBJS)/%.o)

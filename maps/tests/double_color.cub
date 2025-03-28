@@ -4,6 +4,7 @@ WE./textures/we.png
 NO  ./textures/no.png
 SO ./textures/so.png
 EA ./textures/ea.png
+C 100,200,255
 
 1111111
 1000001

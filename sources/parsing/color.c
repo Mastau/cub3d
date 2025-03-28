@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:57:15 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/26 15:40:36 by thomarna         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:24:18 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ int	parsing_color(t_cub *data, char *line)
 	line = skip_spaces(line);
 	type = *line;
 	if (type != 'F' && type != 'C')
+		return (-1);
+	if ((type == 'F' && data->floor != NULL)
+		|| (type == 'C' && data->ceiling != NULL))
 		return (-1);
 	line = skip_spaces(line + 1);
 	if (validate_and_extract_colors(line, &r, &g, &b) == -1)

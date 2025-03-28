@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thomarna <thomarna@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 16:56:39 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/24 13:43:02 by thomarna         ###   ########.fr       */
+/*   Updated: 2025/03/28 09:16:11 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	map_fill(t_cub *data)
 	i = 0;
 	tmp = ft_strtrim(data->map_line, "\n");
 	if (!tmp)
-		return (1);
+		return (map_error());
 	while (tmp && tmp[i])
 	{
 		if (!start_checker(tmp))

@@ -1,10 +1,10 @@
-NAME = cub3d
+NAME = cub3D
 CC = cc
 LIBFT_PATH = lib/Libft
 MLX_PATH = lib/MacroLibX
 LIBFT = $(LIBFT_PATH)/libft.a
 MLX = $(MLX_PATH)/libmlx.so
-CFLAGS = -Werror -Wall -Wextra
+CFLAGS = -Werror -Wall -Wextra -g
 LDFLAGS = -lm -lSDL2
 DIROBJS = .objs
 OBJS = $(SRCS:%.c=$(DIROBJS)/%.o)
@@ -35,6 +35,7 @@ SRCS =	sources/main.c \
 		sources/parsing/parsing.c \
 		sources/parsing/path.c \
 		sources/parsing/utils.c \
+		sources/parsing/error_parsing.c \
 
 # Couleurs et emojis
 RED := \033[1;31m

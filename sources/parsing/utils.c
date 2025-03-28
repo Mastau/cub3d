@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thomarna <thomarna@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:07:22 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/26 15:27:54 by thomarna         ###   ########.fr       */
+/*   Updated: 2025/03/28 07:55:51 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,8 @@ char	*skip_spaces(char *str)
 
 int	check_prefix(char *line)
 {
-	while (*line && (*line == ' ' || *line == '\n'))
-		line++;
-	if (*line == '\0')
+	line = skip_spaces(line);
+	if (*line == '\0' || *line == '\n')
 		return (1);
 	if (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2)
 		|| !ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2)

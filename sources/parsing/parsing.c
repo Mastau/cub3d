@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 09:10:39 by thomarna          #+#    #+#             */
-/*   Updated: 2025/03/27 17:23:17 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/03/28 07:55:38 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ int	parsing_line(t_cub *data, char *line)
 {
 	if (line == NULL)
 		return (0);
+	line = skip_spaces(line);
+	if (*line == '\0' || *line == '\n')
+		return (3);
 	if (parsing_checker(data))
 	{
 		if (check_prefix(line))
